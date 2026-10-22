@@ -17,7 +17,7 @@
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
-        
+
         body {
             background-color: var(--bg-deep);
             color: var(--text-main);
@@ -25,7 +25,7 @@
                 radial-gradient(circle at 10% 20%, rgba(0, 240, 255, 0.05) 0%, transparent 40%),
                 radial-gradient(circle at 90% 80%, rgba(255, 0, 127, 0.05) 0%, transparent 40%);
             min-height: 100vh;
-            padding-bottom: 140px;
+            padding-bottom: 280px;
         }
 
         header {
@@ -53,7 +53,7 @@
 
         .categories { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 25px; scrollbar-width: none; }
         .categories::-webkit-scrollbar { display: none; }
-        
+
         .cat-btn {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -113,7 +113,7 @@
         .product-info { padding: 15px; }
         .product-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 6px; color: #fff; }
         .product-price { color: var(--neon-cyan); font-size: 1.2rem; font-weight: bold; margin: 8px 0; text-shadow: 0 0 8px rgba(0, 240, 255, 0.3); }
-        
+
         .add-btn {
             background: linear-gradient(135deg, rgba(0, 240, 255, 0.2), rgba(0, 240, 255, 0.05));
             border: 1px solid var(--neon-cyan);
@@ -150,7 +150,34 @@
         .cart-summary { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 1rem; }
         .cart-summary span span { color: var(--neon-green); font-weight: bold; text-shadow: 0 0 8px rgba(0, 255, 102, 0.3); }
 
-        .client-inputs { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+        /* DATOS PAGO MÓVIL */
+        .pago-info-box {
+            background: rgba(0, 240, 255, 0.05);
+            border: 1px solid var(--neon-cyan);
+            border-radius: 8px;
+            padding: 10px 15px;
+            margin-bottom: 12px;
+            font-size: 0.85rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .pago-item { display: flex; align-items: center; gap: 6px; }
+        .btn-copy {
+            background: rgba(0, 240, 255, 0.2);
+            border: 1px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            padding: 2px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.75rem;
+        }
+        .btn-copy:hover { background: var(--neon-cyan); color: #000; }
+
+        .client-inputs { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 10px; margin-bottom: 12px; }
         .client-inputs input, .client-inputs select {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.12);
@@ -191,6 +218,7 @@
 
         @media (max-width: 768px) {
             .client-inputs { grid-template-columns: 1fr; }
+            body { padding-bottom: 380px; }
         }
     </style>
 </head>
@@ -219,14 +247,28 @@
             <span>Total Créditos: $<span id="cart-total">0.00</span></span>
         </div>
 
+        <!-- RECUADRO CON DATOS DE PAGO MÓVIL -->
+        <div class="pago-info-box" id="pago-box">
+            <span><strong>🏦 BDV (0102)</strong></span>
+            <div class="pago-item">
+                <span>V-17758545</span>
+                <button class="btn-copy" onclick="copiarTexto('17758545')">Copiar</button>
+            </div>
+            <div class="pago-item">
+                <span>04220082464</span>
+                <button class="btn-copy" onclick="copiarTexto('04220082464')">Copiar</button>
+            </div>
+        </div>
+
         <div class="client-inputs">
             <input type="text" id="client-name" placeholder="Nombre del Cliente">
             <input type="text" id="client-address" placeholder="Dirección de Entrega">
             <select id="payment-method">
-                <option value="Pago Móvil">Pago Móvil</option>
+                <option value="Pago Móvil">Pago Móvil (Banco Venezuela)</option>
                 <option value="Efectivo $">Efectivo ($)</option>
                 <option value="Zelle">Zelle</option>
             </select>
+            <input type="text" id="payment-ref" placeholder="N° Referencia (Pago Móvil)">
         </div>
 
         <button class="checkout-btn" onclick="sendWhatsAppOrder()">
@@ -235,11 +277,16 @@
     </div>
 
     <script>
-        const PHONE_NUMBER = "584129624607"; // Reemplaza con tu número de teléfono
+        const PHONE_NUMBER = "584220082464"; // Tu número de WhatsApp actualizado
         const API_URL = `${window.location.origin}/api/productos`;
-        
+
         let products = [];
         let cart = {};
+
+        function copiarTexto(texto) {
+            navigator.clipboard.writeText(texto);
+            alert("¡Copiado al portapapeles: " + texto + "!");
+        }
 
         async function loadProducts() {
             try {
@@ -254,7 +301,7 @@
         function renderProducts(items) {
             const container = document.getElementById('products-container');
             container.innerHTML = '';
-            
+
             if(items.length === 0) {
                 container.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 40px;">No hay productos registrados en el inventario.</p>';
                 return;
@@ -317,6 +364,7 @@
             const name = document.getElementById('client-name').value.trim();
             const address = document.getElementById('client-address').value.trim();
             const payment = document.getElementById('payment-method').value;
+            const ref = document.getElementById('payment-ref').value.trim();
 
             if (Object.keys(cart).length === 0) {
                 alert("El carrito de compras está vacío.");
@@ -328,23 +376,28 @@
                 return;
             }
 
-            let message = `⚡ *TRANSMISIÓN DE PEDIDO - VARIEDADES OSMARI* ⚡\n\n`;
-            message += `👤 *Cliente:* ${name}\n`;
-            message += `📍 *Ubicación:* ${address}\n`;
-            message += `💳 *Método de Pago:* ${payment}\n\n`;
-            message += `📦 *Detalle de la Orden:*\n`;
+            // Armado de mensaje limpio en texto plano
+            let message = "TRANSMISION DE PEDIDO - VARIEDADES OSMARI\n\n";
+            message += "Cliente: " + name + "\n";
+            message += "Ubicacion: " + address + "\n";
+            message += "Metodo de Pago: " + payment + "\n";
+            if(ref) {
+                message += "Referencia Pago: " + ref + "\n";
+            }
+            message += "\nDetalle de la Orden:\n";
 
             let total = 0;
             Object.values(cart).forEach(item => {
                 const subtotal = item.precio * item.qty;
                 total += subtotal;
-                message += `• ${item.nombre} x${item.qty} = $${subtotal.toFixed(2)}\n`;
+                message += "- " + item.nombre + " x" + item.qty + " = $" + subtotal.toFixed(2) + "\n";
             });
 
-            message += `\n💵 *TOTAL A PAGAR:* $${total.toFixed(2)}`;
+            message += "\nTOTAL A PAGAR: $" + total.toFixed(2);
 
+            // Codificación limpia para evitar rombos en WhatsApp
             const encodedMessage = encodeURIComponent(message);
-            window.open(`https://wa.me/${PHONE_NUMBER}?text=${encodedMessage}`, '_blank');
+            window.open("https://wa.me/" + PHONE_NUMBER + "?text=" + encodedMessage, '_blank');
         }
 
         loadProducts();
