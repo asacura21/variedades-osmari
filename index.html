@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VARIEDADES OSMARI // Catálogo Oficial</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         :root {
             --bg-deep: #05070b;
@@ -20,7 +21,6 @@
 
         body {
             background-color: #05070b;
-            /* Fondo comercial de abastos/charcutería con filtro oscuro para legibilidad */
             background-image: 
                 linear-gradient(rgba(5, 7, 11, 0.88), rgba(5, 7, 11, 0.94)), 
                 url('https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=1200&auto=format&fit=crop');
@@ -55,31 +55,86 @@
 
         .container { max-width: 1100px; margin: 25px auto; padding: 0 15px; }
 
-        .categories { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 25px; scrollbar-width: none; }
-        .categories::-webkit-scrollbar { display: none; }
+        /* MENÚ DESPLEGABLE TIPO BDV (ESTILO VERTICAL) */
+        .menu-dropdown-container {
+            margin-bottom: 25px;
+            position: relative;
+        }
 
-        .cat-btn {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            color: var(--text-muted);
-            padding: 10px 20px;
-            border-radius: 8px;
+        .btn-toggle-cat {
+            background: rgba(13, 20, 35, 0.9);
+            border: 1px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            width: 100%;
+            padding: 14px 20px;
+            border-radius: 10px;
+            font-size: 1.05rem;
+            font-weight: 700;
             cursor: pointer;
-            white-space: nowrap;
-            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            letter-spacing: 1px;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.15);
             transition: all 0.3s ease;
         }
 
+        .btn-toggle-cat:hover {
+            background: rgba(0, 240, 255, 0.15);
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
+        }
+
+        .categories-dropdown {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            background: rgba(8, 12, 20, 0.95);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--border-glow);
+            border-radius: 10px;
+            padding: 10px;
+            margin-top: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .categories-dropdown.show { display: flex; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .cat-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--text-main);
+            padding: 12px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: left;
+            font-size: 0.95rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .cat-btn i { color: var(--neon-cyan); width: 20px; text-align: center; }
+
         .cat-btn:hover {
+            background: rgba(0, 240, 255, 0.1);
             border-color: var(--neon-cyan);
             color: var(--neon-cyan);
+            padding-left: 22px;
         }
 
         .cat-btn.active {
-            background: rgba(0, 240, 255, 0.15);
+            background: rgba(0, 240, 255, 0.2);
             border-color: var(--neon-cyan);
             color: var(--neon-cyan);
-            box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+            box-shadow: 0 0 12px rgba(0, 240, 255, 0.2);
         }
 
         .products-grid {
@@ -234,12 +289,23 @@
     </header>
 
     <div class="container">
-        <div class="categories">
-            <button class="cat-btn active" onclick="filterCategory('todos', event)">[ TODOS ]</button>
-            <button class="cat-btn" onclick="filterCategory('charcuteria', event)">[ CHARCUTERÍA ]</button>
-            <button class="cat-btn" onclick="filterCategory('quesos', event)">[ QUESOS ]</button>
-            <button class="cat-btn" onclick="filterCategory('viveres', event)">[ VÍVERES ]</button>
-            <button class="cat-btn" onclick="filterCategory('hogar', event)">[ HOGAR / VARIOS ]</button>
+        <!-- MENÚ DESPLEGABLE VERTICAL DE CATEGORÍAS -->
+        <div class="menu-dropdown-container">
+            <button class="btn-toggle-cat" onclick="toggleCategoriesMenu()">
+                <span><i class="fa-solid fa-bars"></i> SECCIONES DEL CATÁLOGO</span>
+                <span id="selected-cat-label" style="font-size: 0.85rem; color: var(--text-muted);">[ TODOS ]</span>
+            </button>
+
+            <div class="categories-dropdown" id="categories-menu">
+                <button class="cat-btn active" onclick="selectCategory('todos', '[ TODOS ]', event)"><i class="fa-solid fa-border-all"></i> Todos los Productos</button>
+                <button class="cat-btn" onclick="selectCategory('ropa', 'Ropa y Moda', event)"><i class="fa-solid fa-shirt"></i> Ropa y Moda</button>
+                <button class="cat-btn" onclick="selectCategory('lenceria', 'Lencería', event)"><i class="fa-solid fa-vest"></i> Lencería</button>
+                <button class="cat-btn" onclick="selectCategory('cremas', 'Cuidado Personal / Cremas', event)"><i class="fa-solid fa-pump-soap"></i> Cuidado Personal / Cremas</button>
+                <button class="cat-btn" onclick="selectCategory('charcuteria', 'Charcutería', event)"><i class="fa-solid fa-drumstick-bite"></i> Charcutería</button>
+                <button class="cat-btn" onclick="selectCategory('quesos', 'Quesos', event)"><i class="fa-solid fa-cheese"></i> Quesos</button>
+                <button class="cat-btn" onclick="selectCategory('viveres', 'Víveres', event)"><i class="fa-solid fa-basket-shopping"></i> Víveres</button>
+                <button class="cat-btn" onclick="selectCategory('hogar', 'Hogar / Varios', event)"><i class="fa-solid fa-house"></i> Hogar / Varios</button>
+            </div>
         </div>
 
         <div class="products-grid" id="products-container"></div>
@@ -251,7 +317,6 @@
             <span>Total Créditos: $<span id="cart-total">0.00</span></span>
         </div>
 
-        <!-- RECUADRO CON DATOS DE PAGO MÓVIL -->
         <div class="pago-info-box" id="pago-box">
             <span><strong>🏦 BDV (0102)</strong></span>
             <div class="pago-item">
@@ -287,6 +352,25 @@
         let products = [];
         let cart = {};
 
+        function toggleCategoriesMenu() {
+            const menu = document.getElementById('categories-menu');
+            menu.classList.toggle('show');
+        }
+
+        function selectCategory(cat, labelText, event) {
+            document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            
+            document.getElementById('selected-cat-label').innerText = labelText;
+            document.getElementById('categories-menu').classList.remove('show');
+
+            if(cat === 'todos') {
+                renderProducts(products);
+            } else {
+                renderProducts(products.filter(p => p.categoria === cat));
+            }
+        }
+
         function copiarTexto(texto) {
             navigator.clipboard.writeText(texto);
             alert("¡Copiado al portapapeles: " + texto + "!");
@@ -307,7 +391,7 @@
             container.innerHTML = '';
 
             if(items.length === 0) {
-                container.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 40px;">No hay productos registrados en el inventario.</p>';
+                container.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 40px;">No hay productos registrados en esta categoría.</p>';
                 return;
             }
 
@@ -328,17 +412,6 @@
                 `;
                 container.appendChild(card);
             });
-        }
-
-        function filterCategory(cat, event) {
-            document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-
-            if(cat === 'todos') {
-                renderProducts(products);
-            } else {
-                renderProducts(products.filter(p => p.categoria === cat));
-            }
         }
 
         function addToCart(id) {
@@ -364,7 +437,7 @@
             document.getElementById('cart-total').innerText = total.toFixed(2);
         }
 
-        function sendWhatsAppOrder() {
+        async function sendWhatsAppOrder() {
             const name = document.getElementById('client-name').value.trim();
             const address = document.getElementById('client-address').value.trim();
             const payment = document.getElementById('payment-method').value;
@@ -380,6 +453,32 @@
                 return;
             }
 
+            let total = 0;
+            let resumenProductos = [];
+            Object.values(cart).forEach(item => {
+                const subtotal = item.precio * item.qty;
+                total += subtotal;
+                resumenProductos.push(`${item.nombre} (x${item.qty})`);
+            });
+
+            // Guardado automático en ventas.csv
+            try {
+                await fetch(`${window.location.origin}/api/registrar-pago`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        cliente: name,
+                        direccion: address,
+                        metodo: payment,
+                        referencia: ref,
+                        monto: total.toFixed(2),
+                        detalles: resumenProductos.join(', ')
+                    })
+                });
+            } catch (err) {
+                console.error("Error guardando registro:", err);
+            }
+
             let message = "TRANSMISION DE PEDIDO - VARIEDADES OSMARI\n\n";
             message += "Cliente: " + name + "\n";
             message += "Ubicacion: " + address + "\n";
@@ -389,10 +488,8 @@
             }
             message += "\nDetalle de la Orden:\n";
 
-            let total = 0;
             Object.values(cart).forEach(item => {
                 const subtotal = item.precio * item.qty;
-                total += subtotal;
                 message += "- " + item.nombre + " x" + item.qty + " = $" + subtotal.toFixed(2) + "\n";
             });
 
