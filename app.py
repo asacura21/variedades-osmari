@@ -11,7 +11,7 @@ app.secret_key = 'clave_secreta_super_segura_variedades_osmari'
 CORS(app, supports_credentials=True)
 
 # Contraseña del administrador 
-ADMIN_PASSWORD = "admin1234"
+ADMIN_PASSWORD = "admin123"
 
 # Datos de Pago Móvil para Variedades Osmari (Banco de Venezuela)
 DATOS_PAGO = {
@@ -76,7 +76,6 @@ ADMIN_HTML = """
             align-items: center;
         }
 
-        /* CARD DE LOGIN FUTURISTA */
         .login-card {
             background: var(--bg-card);
             backdrop-filter: blur(16px);
@@ -145,7 +144,6 @@ ADMIN_HTML = """
             text-shadow: 0 0 8px rgba(255, 0, 127, 0.4);
         }
 
-        /* CONTENEDOR DEL PANEL */
         .admin-container {
             display: none;
             width: 100%;
@@ -256,7 +254,6 @@ ADMIN_HTML = """
 </head>
 <body>
 
-    <!-- PANTALLA DE ACCESO -->
     <div class="login-card" id="login-section">
         <h2><i class="fa-solid fa-shield-halved"></i> ACCESO CENTRAL</h2>
         <p>Autenticación requerida - Variedades Osmari</p>
@@ -267,14 +264,12 @@ ADMIN_HTML = """
         </form>
     </div>
 
-    <!-- PANEL DE ADMINISTRACIÓN -->
     <div class="admin-container" id="admin-section">
         <div class="admin-header">
             <h1>⚡ VARIEDADES OSMARI // INVENTARIO</h1>
             <button class="btn-logout" onclick="logout()"><i class="fa-solid fa-power-off"></i> Salir</button>
         </div>
 
-        <!-- BOTÓN DE DESCARGAR REPORTE DE VENTAS -->
         <div style="margin-bottom: 25px; background: rgba(0, 240, 255, 0.05); border: 1px solid var(--border-glow); padding: 15px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center;">
             <div>
                 <h3 style="margin-bottom: 5px; color: var(--neon-cyan);"><i class="fa-solid fa-file-excel"></i> Control de Ventas</h3>
@@ -288,17 +283,21 @@ ADMIN_HTML = """
         <h3>REGISTRAR NUEVO ITEM</h3>
         <form id="product-form" style="margin-top: 15px;">
             <div class="form-grid">
-                <input type="text" id="nombre" placeholder="Nombre (ej: Queso Paisa)" required>
+                <input type="text" id="nombre" placeholder="Nombre (ej: Camisa Ovejita / Queso Paisa)" required>
                 <input type="number" step="0.01" id="precio" placeholder="Precio ($)" required>
+                <!-- SELECTOR CON TODAS LAS NUEVAS CATEGORÍAS -->
                 <select id="categoria">
+                    <option value="ropa">Ropa y Moda</option>
+                    <option value="lenceria">Lencería</option>
+                    <option value="cremas">Cuidado Personal / Cremas</option>
                     <option value="charcuteria">Charcutería</option>
                     <option value="quesos">Quesos</option>
                     <option value="viveres">Víveres</option>
                     <option value="hogar">Hogar / Varios</option>
                 </select>
                 <select id="unidad">
-                    <option value="Kg">Por Kg</option>
                     <option value="Unidad">Por Unidad</option>
+                    <option value="Kg">Por Kg</option>
                     <option value="Pack">Por Pack</option>
                 </select>
             </div>
@@ -466,7 +465,6 @@ def logout():
     session.pop('admin_logged', None)
     return jsonify({"success": True})
 
-# Registrar Venta / Pedido hacia ventas.csv
 @app.route('/api/registrar-pago', methods=['POST'])
 def registrar_pago():
     try:
@@ -482,7 +480,7 @@ def registrar_pago():
         file_exists = os.path.exists(EXCEL_FILE)
 
         with open(EXCEL_FILE, mode='a', newline='', encoding='utf-8-sig') as f:
-            writer = csv.writer(f, delimiter=';') # Delimitador ';' abre perfecto en Excel en español
+            writer = csv.writer(f, delimiter=';')
             if not file_exists:
                 writer.writerow(['Fecha y Hora', 'Cliente', 'Direccion', 'Metodo de Pago', 'N° Referencia', 'Total ($)', 'Detalle Orden'])
             writer.writerow([fecha, nombre, direccion, metodo, referencia, monto, detalles])
@@ -491,7 +489,6 @@ def registrar_pago():
     except Exception as e:
         return jsonify({"success": False, "error": str(e)}), 500
 
-# Descargar Reporte de Ventas para el Admin
 @app.route('/api/descargar-ventas', methods=['GET'])
 def descargar_ventas():
     if not session.get('admin_logged'):
@@ -514,7 +511,7 @@ def add_producto():
     nombre = request.form.get('nombre')
     precio = request.form.get('precio')
     categoria = request.form.get('categoria')
-    unidad = request.form.get('unidad', 'Kg')
+    unidad = request.form.get('unidad', 'Unidad')
 
     imagen_filename = ''
     if 'imagen' in request.files:
