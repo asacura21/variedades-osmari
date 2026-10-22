@@ -1,7 +1,9 @@
-from flask import Flask, render_template_string, request, jsonify, send_from_directory, session
+from flask import Flask, render_template_string, request, jsonify, send_from_directory, session, send_file
 from flask_cors import CORS
 import json
 import os
+import csv
+from datetime import datetime
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
@@ -9,7 +11,7 @@ app.secret_key = 'clave_secreta_super_segura_variedades_osmari'
 CORS(app, supports_credentials=True)
 
 # Contraseña del administrador 
-ADMIN_PASSWORD = "admin1234"
+ADMIN_PASSWORD = "admin123"
 
 # Datos de Pago Móvil para Variedades Osmari (Banco de Venezuela)
 DATOS_PAGO = {
@@ -24,6 +26,7 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 DATA_FILE = 'productos.json'
+EXCEL_FILE = 'ventas.csv'
 
 def cargar_productos():
     if not os.path.exists(DATA_FILE):
@@ -271,6 +274,17 @@ ADMIN_HTML = """
             <button class="btn-logout" onclick="logout()"><i class="fa-solid fa-power-off"></i> Salir</button>
         </div>
 
+        <!-- BOTÓN DE DESCARGAR REPORTE DE VENTAS -->
+        <div style="margin-bottom: 25px; background: rgba(0, 240, 255, 0.05); border: 1px solid var(--border-glow); padding: 15px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <h3 style="margin-bottom: 5px; color: var(--neon-cyan);"><i class="fa-solid fa-file-excel"></i> Control de Ventas</h3>
+                <p style="color: var(--text-muted); font-size: 0.85rem;">Descarga el registro de pedidos en formato compatible con Excel (CSV).</p>
+            </div>
+            <button class="btn-add" onclick="downloadReport()" style="padding: 10px 20px;">
+                <i class="fa-solid fa-download"></i> DESCARGAR REPORTE
+            </button>
+        </div>
+
         <h3>REGISTRAR NUEVO ITEM</h3>
         <form id="product-form" style="margin-top: 15px;">
             <div class="form-grid">
@@ -342,6 +356,10 @@ ADMIN_HTML = """
         async function logout() {
             await fetch(`${window.location.origin}/api/logout`, { method: 'POST' });
             location.reload();
+        }
+
+        function downloadReport() {
+            window.location.href = `${window.location.origin}/api/descargar-ventas`;
         }
 
         async function fetchProducts() {
@@ -447,6 +465,42 @@ def data_login():
 def logout():
     session.pop('admin_logged', None)
     return jsonify({"success": True})
+
+# Registrar Venta / Pedido hacia ventas.csv
+@app.route('/api/registrar-pago', methods=['POST'])
+def registrar_pago():
+    try:
+        data = request.get_json()
+        nombre = data.get('cliente', '')
+        direccion = data.get('direccion', '')
+        metodo = data.get('metodo', '')
+        referencia = data.get('referencia', '')
+        monto = data.get('monto', 0.0)
+        detalles = data.get('detalles', '')
+        fecha = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+        file_exists = os.path.exists(EXCEL_FILE)
+
+        with open(EXCEL_FILE, mode='a', newline='', encoding='utf-8-sig') as f:
+            writer = csv.writer(f, delimiter=';') # Delimitador ';' abre perfecto en Excel en español
+            if not file_exists:
+                writer.writerow(['Fecha y Hora', 'Cliente', 'Direccion', 'Metodo de Pago', 'N° Referencia', 'Total ($)', 'Detalle Orden'])
+            writer.writerow([fecha, nombre, direccion, metodo, referencia, monto, detalles])
+
+        return jsonify({"success": True, "mensaje": "Venta registrada con éxito"})
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+# Descargar Reporte de Ventas para el Admin
+@app.route('/api/descargar-ventas', methods=['GET'])
+def descargar_ventas():
+    if not session.get('admin_logged'):
+        return jsonify({"error": "No autorizado."}), 401
+    
+    if os.path.exists(EXCEL_FILE):
+        return send_file(EXCEL_FILE, as_attachment=True, download_name='ventas_variedades_osmari.csv')
+    else:
+        return "Aún no hay registros de ventas guardados en el sistema.", 404
 
 @app.route('/api/productos', methods=['GET'])
 def get_productos():
