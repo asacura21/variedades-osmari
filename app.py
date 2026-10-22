@@ -9,7 +9,15 @@ app.secret_key = 'clave_secreta_super_segura_variedades_osmari'
 CORS(app, supports_credentials=True)
 
 # Contraseña del administrador 
-ADMIN_PASSWORD = "admin123"
+ADMIN_PASSWORD = "admin1234"
+
+# Datos de Pago Móvil para Variedades Osmari (Banco de Venezuela)
+DATOS_PAGO = {
+    "banco": "0102 - Banco de Venezuela",
+    "cedula": "V-17758545",
+    "telefono": "04220082464",
+    "whatsapp": "584220082464"
+}
 
 UPLOAD_FOLDER = os.path.join('static', 'uploads')
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
@@ -415,8 +423,9 @@ ADMIN_HTML = """
 
 @app.route('/')
 def cliente_page():
+    productos = cargar_productos()
     with open('index.html', 'r', encoding='utf-8') as f:
-        return render_template_string(f.read())
+        return render_template_string(f.read(), productos=productos, pago=DATOS_PAGO)
 
 @app.route('/admin')
 def admin_page():
@@ -452,7 +461,7 @@ def add_producto():
     precio = request.form.get('precio')
     categoria = request.form.get('categoria')
     unidad = request.form.get('unidad', 'Kg')
-    
+
     imagen_filename = ''
     if 'imagen' in request.files:
         archivo = request.files['imagen']
@@ -466,7 +475,7 @@ def add_producto():
 
     productos = cargar_productos()
     nuevo_id = max([p['id'] for p in productos], default=0) + 1
-    
+
     nuevo_producto = {
         "id": nuevo_id,
         "nombre": nombre,
@@ -475,7 +484,7 @@ def add_producto():
         "unidad": unidad,
         "imagen": imagen_filename
     }
-    
+
     productos.append(nuevo_producto)
     guardar_productos(productos)
     return jsonify({"mensaje": "Producto guardado con éxito", "producto": nuevo_producto}), 201
@@ -491,7 +500,7 @@ def delete_producto(prod_id):
             ruta_img = os.path.join(app.config['UPLOAD_FOLDER'], p['imagen'])
             if os.path.exists(ruta_img):
                 os.remove(ruta_img)
-                
+
     productos = [p for p in productos if p['id'] != prod_id]
     guardar_productos(productos)
     return jsonify({"mensaje": "Producto eliminado exitosamente"})
