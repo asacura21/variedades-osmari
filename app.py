@@ -11,7 +11,7 @@ app.secret_key = 'clave_secreta_super_segura_variedades_osmari'
 CORS(app, supports_credentials=True)
 
 # Contraseña del administrador 
-ADMIN_PASSWORD = "admin123"
+ADMIN_PASSWORD = "admin1234"
 
 # Datos de Pago Móvil para Variedades Osmari (Banco de Venezuela)
 DATOS_PAGO = {
