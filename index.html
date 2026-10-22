@@ -7,7 +7,7 @@
     <style>
         :root {
             --bg-deep: #05070b;
-            --bg-card: rgba(13, 20, 35, 0.7);
+            --bg-card: rgba(13, 20, 35, 0.82);
             --neon-cyan: #00f0ff;
             --neon-green: #00ff66;
             --neon-pink: #ff007f;
@@ -19,11 +19,15 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
 
         body {
-            background-color: var(--bg-deep);
-            color: var(--text-main);
+            background-color: #05070b;
+            /* Fondo comercial de abastos/charcutería con filtro oscuro para legibilidad */
             background-image: 
-                radial-gradient(circle at 10% 20%, rgba(0, 240, 255, 0.05) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(255, 0, 127, 0.05) 0%, transparent 40%);
+                linear-gradient(rgba(5, 7, 11, 0.88), rgba(5, 7, 11, 0.94)), 
+                url('https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=1200&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: var(--text-main);
             min-height: 100vh;
             padding-bottom: 280px;
         }
@@ -55,8 +59,8 @@
         .categories::-webkit-scrollbar { display: none; }
 
         .cat-btn {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.12);
             color: var(--text-muted);
             padding: 10px 20px;
             border-radius: 8px;
@@ -72,10 +76,10 @@
         }
 
         .cat-btn.active {
-            background: rgba(0, 240, 255, 0.1);
+            background: rgba(0, 240, 255, 0.15);
             border-color: var(--neon-cyan);
             color: var(--neon-cyan);
-            box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
         }
 
         .products-grid {
@@ -86,8 +90,8 @@
 
         .product-card {
             background: var(--bg-card);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 14px;
             overflow: hidden;
             display: flex;
@@ -99,7 +103,7 @@
         .product-card:hover {
             transform: translateY(-5px);
             border-color: var(--neon-cyan);
-            box-shadow: 0 8px 25px rgba(0, 240, 255, 0.15);
+            box-shadow: 0 8px 25px rgba(0, 240, 255, 0.2);
         }
 
         .product-img {
@@ -115,7 +119,7 @@
         .product-price { color: var(--neon-cyan); font-size: 1.2rem; font-weight: bold; margin: 8px 0; text-shadow: 0 0 8px rgba(0, 240, 255, 0.3); }
 
         .add-btn {
-            background: linear-gradient(135deg, rgba(0, 240, 255, 0.2), rgba(0, 240, 255, 0.05));
+            background: linear-gradient(135deg, rgba(0, 240, 255, 0.25), rgba(0, 240, 255, 0.05));
             border: 1px solid var(--neon-cyan);
             color: var(--neon-cyan);
             padding: 10px;
@@ -134,13 +138,13 @@
         }
 
         .cart-section {
-            background: rgba(10, 14, 23, 0.95);
-            backdrop-filter: blur(15px);
+            background: rgba(8, 12, 20, 0.96);
+            backdrop-filter: blur(18px);
             border-top: 1px solid var(--border-glow);
             position: fixed;
             bottom: 0; left: 0; right: 0;
             padding: 15px 20px;
-            box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.8);
+            box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.85);
             max-width: 1100px;
             margin: 0 auto;
             border-top-left-radius: 16px;
@@ -152,7 +156,7 @@
 
         /* DATOS PAGO MÓVIL */
         .pago-info-box {
-            background: rgba(0, 240, 255, 0.05);
+            background: rgba(0, 240, 255, 0.06);
             border: 1px solid var(--neon-cyan);
             border-radius: 8px;
             padding: 10px 15px;
@@ -179,8 +183,8 @@
 
         .client-inputs { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 10px; margin-bottom: 12px; }
         .client-inputs input, .client-inputs select {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             color: white;
             padding: 10px;
             border-radius: 8px;
@@ -191,7 +195,7 @@
 
         .client-inputs input:focus, .client-inputs select:focus {
             border-color: var(--neon-cyan);
-            box-shadow: 0 0 8px rgba(0, 240, 255, 0.2);
+            box-shadow: 0 0 8px rgba(0, 240, 255, 0.3);
         }
 
         .client-inputs option { background: #0f172a; color: white; }
@@ -277,7 +281,7 @@
     </div>
 
     <script>
-        const PHONE_NUMBER = "584220082464"; // Tu número de WhatsApp actualizado
+        const PHONE_NUMBER = "584220082464"; 
         const API_URL = `${window.location.origin}/api/productos`;
 
         let products = [];
@@ -376,7 +380,6 @@
                 return;
             }
 
-            // Armado de mensaje limpio en texto plano
             let message = "TRANSMISION DE PEDIDO - VARIEDADES OSMARI\n\n";
             message += "Cliente: " + name + "\n";
             message += "Ubicacion: " + address + "\n";
@@ -395,7 +398,6 @@
 
             message += "\nTOTAL A PAGAR: $" + total.toFixed(2);
 
-            // Codificación limpia para evitar rombos en WhatsApp
             const encodedMessage = encodeURIComponent(message);
             window.open("https://wa.me/" + PHONE_NUMBER + "?text=" + encodedMessage, '_blank');
         }
