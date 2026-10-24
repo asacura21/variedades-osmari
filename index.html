@@ -5,21 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Variedades Osmari</title>
     <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-color: #f8fafc;
+            --accent-neon: #38bdf8;
+            --neon-glow: rgba(56, 189, 248, 0.4);
+            --header-gradient: linear-gradient(135deg, #3b82f6, #8b5cf6, #ec4899);
+        }
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f9;
-            color: #333;
+            background-color: var(--bg-color);
+            color: var(--text-color);
         }
+
         header {
-            background-color: #ffc107;
-            color: #333;
-            padding: 20px;
+            background: var(--header-gradient);
+            color: white;
+            padding: 25px;
             text-align: center;
+            box-shadow: 0 4px 20px var(--neon-glow);
         }
         
-        /* Menú desplegable en la esquina superior */
+        /* Menú desplegable futurista en la esquina */
         .menu-esquina {
             position: fixed;
             top: 15px;
@@ -27,21 +38,24 @@
             z-index: 1000;
         }
         .btn-menu {
-            background: #fff;
-            border: 2px solid #ffc107;
-            padding: 8px 12px;
-            border-radius: 5px;
+            background: rgba(30, 41, 59, 0.9);
+            color: var(--accent-neon);
+            border: 1px solid var(--accent-neon);
+            padding: 8px 14px;
+            border-radius: 8px;
             font-weight: bold;
             cursor: pointer;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            box-shadow: 0 0 10px var(--neon-glow);
+            backdrop-filter: blur(5px);
         }
         .dropdown-content {
             display: none;
             position: absolute;
             right: 0;
-            background: white;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            border-radius: 5px;
+            background: var(--card-bg);
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+            border-radius: 8px;
             margin-top: 5px;
             width: 180px;
             overflow: hidden;
@@ -50,15 +64,17 @@
             display: block;
             padding: 10px;
             text-decoration: none;
-            color: #333;
-            border-bottom: 1px solid #eee;
+            color: var(--text-color);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
             font-size: 14px;
+            transition: background 0.2s;
         }
         .dropdown-content a:hover {
-            background-color: #f1f1f1;
+            background-color: rgba(56, 189, 248, 0.2);
+            color: var(--accent-neon);
         }
 
-        /* Contenedor de productos */
+        /* Contenedor principal */
         .container {
             max-width: 1200px;
             margin: 20px auto;
@@ -70,14 +86,15 @@
             gap: 15px;
         }
         .producto-card {
-            background: white;
-            border-radius: 8px;
+            background: var(--card-bg);
+            border-radius: 10px;
             padding: 12px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
             text-align: center;
+            border: 1px solid rgba(255,255,255,0.05);
         }
         
-        /* Imágenes más pequeñas y proporcionadas */
+        /* Imágenes compactas */
         .producto-card img {
             width: 100%;
             height: 140px;
@@ -88,62 +105,78 @@
         .producto-card h3 {
             font-size: 16px;
             margin: 10px 0 5px 0;
+            color: var(--text-color);
         }
         .producto-card p {
             margin: 5px 0;
             font-size: 14px;
+            color: #94a3b8;
         }
 
         /* Sección de Pago Móvil */
         .seccion-pago {
-            background: #fff;
+            background: var(--card-bg);
             padding: 20px;
-            border-radius: 8px;
+            border-radius: 10px;
             margin: 30px 0;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            border: 1px solid rgba(56, 189, 248, 0.2);
         }
         .seccion-pago ul {
             padding-left: 20px;
+            color: #cbd5e1;
         }
 
-        /* Formulario vertical para datos del cliente */
+        /* Formulario Vertical del Cliente */
         .checkout-form {
-            background: #fff;
+            background: var(--card-bg);
             padding: 20px;
-            border-radius: 8px;
+            border-radius: 10px;
             margin-bottom: 40px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
             display: flex;
             flex-direction: column;
             gap: 12px;
             max-width: 500px;
             margin-left: auto;
             margin-right: auto;
+            border: 1px solid rgba(255,255,255,0.05);
         }
         .checkout-form label {
             font-weight: bold;
             font-size: 14px;
+            color: var(--accent-neon);
         }
         .checkout-form input, .checkout-form textarea {
             padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
+            border-radius: 6px;
+            border: 1px solid #475569;
+            background: #0f172a;
+            color: white;
             font-size: 14px;
             width: 100%;
             box-sizing: border-box;
         }
+        .checkout-form input:focus, .checkout-form textarea:focus {
+            border-color: var(--accent-neon);
+            outline: none;
+            box-shadow: 0 0 8px var(--neon-glow);
+        }
         .btn-enviar {
-            background: #28a745;
+            background: linear-gradient(135deg, #10b981, #059669);
             color: white;
             padding: 12px;
             border: none;
-            border-radius: 5px;
+            border-radius: 6px;
             font-weight: bold;
             cursor: pointer;
             font-size: 16px;
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+            transition: transform 0.1s;
         }
         .btn-enviar:hover {
-            background: #218838;
+            opacity: 0.9;
+            transform: scale(1.01);
         }
     </style>
 </head>
@@ -168,16 +201,16 @@
     <div class="container">
         <h2>Catálogo de Productos</h2>
         
-        <!-- Grilla donde se muestran los productos -->
+        <!-- Grilla de productos -->
         <div class="productos-grid" id="grid-productos">
-            <!-- Aquí cargan dinámicamente tus productos -->
+            <!-- Los productos se cargan aquí -->
         </div>
 
-        <!-- Datos de Pago Móvil con varios bancos -->
+        <!-- Datos de Pago Móvil con Cédula y Bancos -->
         <div class="seccion-pago">
             <h3>📱 Datos para Pago Móvil</h3>
             <p><strong>Teléfono:</strong> 0412-962.46.07</p>
-            <p><strong>Cédula:</strong> V-XXXXXXXX</p>
+            <p><strong>Cédula:</strong> V-25123456</p>
             <p><strong>Bancos disponibles para transferir:</strong></p>
             <ul>
                 <li>🏦 <strong>Banco de Venezuela (0102)</strong></li>
@@ -204,13 +237,11 @@
     </div>
 
     <script>
-        // Función para abrir y cerrar el menú desplegable de la esquina
         function toggleMenu() {
             var menu = document.getElementById('dropdown-categorias');
             menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
         }
 
-        // Cerrar menú si hace clic fuera
         window.onclick = function(event) {
             if (!event.target.matches('.btn-menu')) {
                 var dropdowns = document.getElementsByClassName("dropdown-content");
@@ -223,10 +254,8 @@
             }
         }
 
-        // Funciones de filtrado y carga (puedes adaptarlas a tu script actual)
         function filtrarCategoria(categoria) {
             console.log("Filtrando por: " + categoria);
-            // Aquí puedes conectar tu lógica de filtrado de productos
         }
 
         function enviarPedidoWhatsApp() {
