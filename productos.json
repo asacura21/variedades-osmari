@@ -18,7 +18,7 @@
   {
     "id": 3,
     "nombre": "Yogur Casero Artesanal",
-    "precio": 3.00,
+    "precio": 5.00,
     "categoria": "viveres",
     "unidad": "Unidad",
     "imagen": "yogur_casero.jpg"
@@ -74,7 +74,7 @@
   {
     "id": 10,
     "nombre": "Chuleta Ahumada de Cerdo",
-    "precio": 7.50,
+    "precio": 9.0,
     "categoria": "charcuteria",
     "unidad": "Kg",
     "imagen": "chuleta_ahumada.jpg"
@@ -90,7 +90,7 @@
   {
     "id": 12,
     "nombre": "Queso Duro / Semi-duro",
-    "precio": 6.00,
+    "precio": 8.00,
     "categoria": "quesos",
     "unidad": "Kg",
     "imagen": "queso_duro.jpg"
@@ -98,7 +98,7 @@
   {
     "id": 13,
     "nombre": "Cartón de Huevos",
-    "precio": 4.50,
+    "precio": 8.00,
     "categoria": "viveres",
     "unidad": "Cartón",
     "imagen": "huevos.jpg"
@@ -106,7 +106,7 @@
   {
     "id": 14,
     "nombre": "Combo Proteico Variado (Carnes y Pollo)",
-    "precio": 15.00,
+    "precio": 35.00,
     "categoria": "viveres",
     "unidad": "Combo",
     "imagen": "combo_carnes.jpg"
@@ -114,7 +114,7 @@
   {
     "id": 15,
     "nombre": "Combo Charcutero (Queso, Jamón, Salchichas, Huevos)",
-    "precio": 12.00,
+    "precio": 38.00,
     "categoria": "charcuteria",
     "unidad": "Combo",
     "imagen": "combo_charcutero.jpg"
@@ -122,7 +122,7 @@
   {
     "id": 16,
     "nombre": "Pizza Familiar Preparada con Jamón y Maíz",
-    "precio": 8.00,
+    "precio": 5.00,
     "categoria": "hogar",
     "unidad": "Unidad",
     "imagen": "pizza.jpg"
@@ -130,7 +130,7 @@
   {
     "id": 17,
     "nombre": "Pasteles / Empanadas Congeladas (Bandeja)",
-    "precio": 4.00,
+    "precio": 6.00,
     "categoria": "viveres",
     "unidad": "Bandeja",
     "imagen": "pasteles_congelados.jpg"
@@ -138,7 +138,7 @@
   {
     "id": 18,
     "nombre": "Tequeños Artesanales (Oferta)",
-    "precio": 3.00,
+    "precio": 6.00,
     "categoria": "viveres",
     "unidad": "Bandeja",
     "imagen": "tequenos.jpg"
