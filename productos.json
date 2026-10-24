@@ -5,63 +5,63 @@
     "precio": 5.00,
     "categoria": "charcuteria",
     "unidad": "Kg",
-    "imagen": "WhatsApp Image 2026-10-21 at 10.32.41 PM (1).jpeg"
+    "imagen": "WhatsApp Image 2026-10-21 at 10.32.41 PM(1).jpeg"
   },
   {
     "id": 2,
     "nombre": "Torta de Piña Completa",
-    "precio": 12.00,
+    "precio": 15.00,
     "categoria": "viveres",
     "unidad": "Unidad",
-    "imagen": "WhatsApp Image 2026-10-21 at 10.38.23 PM (3).jpeg"
+    "imagen": "WhatsApp Image 2026-10-21 at 10.38.23 PM(3).jpeg"
   },
   {
     "id": 3,
     "nombre": "Yogur Casero Artesanal",
-    "precio": 3.00,
+    "precio": 6.00,
     "categoria": "viveres",
     "unidad": "Unidad",
-    "imagen": "WhatsApp Image 2026-10-21 at 10.38.23 PM (2).jpeg"
+    "imagen": "WhatsApp Image 2026-10-21 at 10.38.23 PM(2).jpeg"
   },
   {
     "id": 4,
     "nombre": "Porción de Torta de Chocolate",
-    "precio": 2.50,
+    "precio": 3.50,
     "categoria": "viveres",
     "unidad": "Unidad",
-    "imagen": "WhatsApp Image 2026-10-21 at 10.38.22 PM (11).jpeg"
+    "imagen": "WhatsApp Image 2026-10-21 at 10.38.22 PM(11).jpeg"
   },
   {
     "id": 5,
     "nombre": "Chocoflan (Torta Quesillo)",
-    "precio": 14.00,
+    "precio": 15.00,
     "categoria": "viveres",
     "unidad": "Unidad",
-    "imagen": "WhatsApp Image 2026-10-21 at 10.38.22 PM (10).jpeg"
+    "imagen": "WhatsApp Image 2026-10-21 at 10.38.22 PM(10).jpeg"
   },
   {
     "id": 6,
     "nombre": "Postres en Vasito (Marquesas)",
-    "precio": 2.00,
+    "precio": 3.00,
     "categoria": "viveres",
     "unidad": "Unidad",
-    "imagen": "WhatsApp Image 2026-10-21 at 10.38.22 PM (9).jpeg"
+    "imagen": "WhatsApp Image 2026-10-21 at 10.38.22 PM(9).jpeg"
   },
   {
     "id": 7,
     "nombre": "Porción de Torta de Piña",
-    "precio": 2.50,
+    "precio": 3.50,
     "categoria": "viveres",
     "unidad": "Unidad",
-    "imagen": "WhatsApp Image 2026-10-21 at 10.38.22 PM (7).jpeg"
+    "imagen": "WhatsApp Image 2026-10-21 at 10.38.22 PM(7).jpeg"
   },
   {
     "id": 8,
     "nombre": "Torta Especial / Tres Leches",
-    "precio": 12.00,
+    "precio": 15.00,
     "categoria": "viveres",
     "unidad": "Unidad",
-    "imagen": "WhatsApp Image 2026-10-21 at 10.38.22 PM (8).jpeg"
+    "imagen": "WhatsApp Image 2026-10-21 at 10.38.22 PM(8).jpeg"
   },
   {
     "id": 9,
@@ -69,15 +69,15 @@
     "precio": 3.00,
     "categoria": "viveres",
     "unidad": "Unidad",
-    "imagen": "WhatsApp Image 2026-10-21 at 10.31.31 PM (1).jpeg"
+    "imagen": "WhatsApp Image 2026-10-21 at 10.31.31 PM(1).jpeg"
   },
   {
     "id": 10,
     "nombre": "Chuleta Ahumada de Cerdo",
-    "precio": 7.50,
+    "precio": 9.00,
     "categoria": "charcuteria",
     "unidad": "Kg",
-    "imagen": "WhatsApp Image 2026-10-21 at 10.32.41 PM.jpeg"
+    "imagen": "WhatsApp Image 2026-10-21 at 10.32.41PM.jpeg"
   },
   {
     "id": 11,
@@ -85,62 +85,62 @@
     "precio": 5.00,
     "categoria": "quesos",
     "unidad": "Kg",
-    "imagen": "WhatsApp Image 2026-10-21 at 10.32.40 PM (2).jpeg"
+    "imagen": "WhatsApp Image 2026-10-21 at 10.32.40 PM(2).jpeg"
   },
   {
     "id": 12,
     "nombre": "Queso Duro / Semi-duro",
-    "precio": 6.00,
+    "precio": 8.00,
     "categoria": "quesos",
     "unidad": "Kg",
-    "imagen": "WhatsApp Image 2026-10-21 at 10.32.40 PM (1).jpeg"
+    "imagen": "WhatsApp Image 2026-10-21 at 10.32.40 PM(1).jpeg"
   },
   {
     "id": 13,
     "nombre": "Cartón de Huevos",
-    "precio": 4.50,
+    "precio": 8.50,
     "categoria": "viveres",
     "unidad": "Cartón",
-    "imagen": "WhatsApp Image 2026-10-21 at 10.32.40 PM.jpeg"
+    "imagen": "WhatsApp Image 2026-10-21 at 10.32.40PM.jpeg"
   },
   {
     "id": 14,
     "nombre": "Combo Proteico Variado (Carnes y Pollo)",
-    "precio": 15.00,
+    "precio": 35.00,
     "categoria": "viveres",
     "unidad": "Combo",
-    "imagen": "WhatsApp Image 2026-10-21 at 10.31.31 PM.jpeg"
+    "imagen": "WhatsApp Image 2026-10-21 at 10.31.31PM.jpeg"
   },
   {
     "id": 15,
     "nombre": "Combo Charcutero",
-    "precio": 12.00,
+    "precio": 38.00,
     "categoria": "charcuteria",
     "unidad": "Combo",
-    "imagen": "WhatsApp Image 2026-10-21 at 10.30.44 PM.jpeg"
+    "imagen": "WhatsApp Image 2026-10-21 at 10.30.44PM.jpeg"
   },
   {
     "id": 16,
     "nombre": "Pizza Familiar",
-    "precio": 8.00,
+    "precio": 6.00,
     "categoria": "hogar",
     "unidad": "Unidad",
-    "imagen": "WhatsApp Image 2026-10-21 at 10.30.16 PM.jpeg"
+    "imagen": "WhatsApp Image 2026-10-21 at 10.30.16PM.jpeg"
   },
   {
     "id": 17,
     "nombre": "Pasteles / Empanadas Congeladas",
-    "precio": 4.00,
+    "precio": 6.00,
     "categoria": "viveres",
     "unidad": "Bandeja",
-    "imagen": "WhatsApp Image 2026-10-21 at 10.29.03 PM (4).jpeg"
+    "imagen": "WhatsApp Image 2026-10-21 at 10.29.03 PM(4).jpeg"
   },
   {
     "id": 18,
     "nombre": "Tequeños Artesanales",
-    "precio": 3.00,
+    "precio": 6.00,
     "categoria": "viveres",
     "unidad": "Bandeja",
-    "imagen": "WhatsApp Image 2026-10-21 at 10.29.03 PM (3).jpeg"
+    "imagen": "WhatsApp Image 2026-10-21 at 10.29.03 PM(3).jpeg"
   }
 ]
