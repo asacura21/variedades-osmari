@@ -3,134 +3,212 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Administración - Charcutería</title>
+    <title>Panel de Administración | Variedades Osmari</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background: #f4f6f9; color: #333; padding: 20px; }
-        .container { max-width: 950px; margin: 0 auto; background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); }
-        h1 { color: #c0392b; margin-bottom: 20px; text-align: center; }
-        
-        .form-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 10px; margin-bottom: 10px; }
-        .file-input { grid-column: span 3; }
-        input, select, button { padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 0.95rem; }
-        
-        .btn-add { background: #27ae60; color: white; border: none; font-weight: bold; cursor: pointer; }
-        .btn-add:hover { background: #219150; }
-        .btn-delete { background: #e74c3c; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; }
-        
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-        th, td { text-align: left; padding: 12px; border-bottom: 1px solid #ddd; vertical-align: middle; }
-        th { background: #f8f9fa; }
-        .img-preview { width: 50px; height: 50px; object-fit: cover; border-radius: 6px; border: 1px solid #eee; }
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        /* Encabezado del Panel */
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #ffffff;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .admin-title {
+            margin: 0;
+            font-size: 22px;
+            color: #2c3e50;
+            font-weight: 700;
+        }
+
+        /* Botón de reporte ubicado en la esquina superior */
+        .btn-reporte {
+            background-color: #17a2b8;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: background 0.2s ease;
+        }
+        .btn-reporte:hover {
+            background-color: #138496;
+        }
+
+        /* Barra de acciones (Nuevo Ítem + Filtros) */
+        .toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        /* Botón compacto de Registrar Nuevo Ítem */
+        .btn-nuevo-item {
+            background-color: #28a745;
+            color: white;
+            padding: 7px 14px;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            box-shadow: 0 2px 4px rgba(40, 167, 69, 0.2);
+            transition: background 0.2s ease;
+        }
+        .btn-nuevo-item:hover {
+            background-color: #218838;
+        }
+
+        /* Contenedor de Tabla Profesional */
+        .tabla-contenedor {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 14px;
+        }
+        th {
+            background-color: #f1f3f5;
+            color: #495057;
+            padding: 12px 15px;
+            font-weight: 600;
+            border-bottom: 2px solid #dee2e6;
+        }
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e9ecef;
+            vertical-align: middle;
+        }
+        tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        /* Miniaturas de imágenes de productos en el inventario */
+        .img-thumb {
+            width: 45px;
+            height: 45px;
+            object-fit: cover;
+            border-radius: 6px;
+            border: 1px solid #dee2e6;
+        }
+
+        /* Botones de Acción dentro de la tabla */
+        .btn-accion {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            margin-right: 4px;
+        }
+        .btn-editar {
+            background-color: #ffc107;
+            color: #212529;
+        }
+        .btn-eliminar {
+            background-color: #dc3545;
+            color: white;
+        }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>🛠️ Panel Administrativo de Productos</h1>
+    <!-- Encabezado con Botón en la Esquina para Descargar Reporte -->
+    <div class="admin-header">
+        <h1 class="admin-title">📊 Control de Inventario</h1>
+        <a href="/descargar_reporte" class="btn-reporte">
+            📥 Descargar Reporte (Excel / PDF)
+        </a>
+    </div>
 
-        <h3>Agregar Nuevo Producto</h3>
-        <form id="product-form" style="margin-top: 15px;">
-            <div class="form-grid">
-                <input type="text" id="nombre" placeholder="Nombre del Producto (ej: Queso Paisa)" required>
-                <input type="number" step="0.01" id="precio" placeholder="Precio ($)" required>
-                <select id="categoria">
-                    <option value="charcuteria">Charcutería</option>
-                    <option value="quesos">Quesos</option>
-                    <option value="viveres">Víveres</option>
-                </select>
-                <select id="unidad">
-                    <option value="Kg">Por Kg</option>
-                    <option value="Unidad">Por Unidad</option>
-                    <option value="Pack">Por Pack</option>
-                </select>
-            </div>
-            
-            <div class="form-grid" style="grid-template-columns: 3fr 1fr;">
-                <input type="file" id="imagen" accept="image/*" class="file-input">
-                <button type="submit" class="btn-add">Guardar Producto +</button>
-            </div>
-        </form>
+    <!-- Barra de Herramientas Completa -->
+    <div class="toolbar">
+        <button class="btn-nuevo-item" onclick="abrirModalNuevoItem()">
+            ➕ Registrar Nuevo Ítem
+        </button>
+        <span style="font-size: 13px; color: #6c757d;">Total de Productos: 27</span>
+    </div>
 
-        <hr style="margin: 25px 0;">
-
-        <h3>Inventario Actual</h3>
+    <!-- Tabla del Inventario -->
+    <div class="tabla-contenedor">
         <table>
             <thead>
                 <tr>
-                    <th>Foto</th>
-                    <th>Nombre</th>
+                    <th>Visual</th>
+                    <th>ID</th>
+                    <th>Producto</th>
                     <th>Categoría</th>
-                    <th>Precio</th>
-                    <th>Acción</th>
+                    <th>Precio ($)</th>
+                    <th>Unidad</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
-            <tbody id="inventory-table"></tbody>
+            <tbody>
+                <!-- Ejemplo de fila de inventario -->
+                <tr>
+                    <td><img src="/static/uploads/1.jpeg" class="img-thumb" alt="Huevos"></td>
+                    <td>1</td>
+                    <td><strong>Cartón de Huevos</strong></td>
+                    <td>Víveres</td>
+                    <td>$8.50</td>
+                    <td>Cartón</td>
+                    <td>
+                        <button class="btn-accion btn-editar">✏️</button>
+                        <button class="btn-accion btn-eliminar">🗑️</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td><img src="/static/uploads/2.jpeg" class="img-thumb" alt="Queso"></td>
+                    <td>2</td>
+                    <td><strong>Queso Arepero Fresco</strong></td>
+                    <td>Quesos</td>
+                    <td>$5.00</td>
+                    <td>Kg</td>
+                    <td>
+                        <button class="btn-accion btn-editar">✏️</button>
+                        <button class="btn-accion btn-eliminar">🗑️</button>
+                    </td>
+                </tr>
+            </tbody>
         </table>
     </div>
 
     <script>
-        const API_URL = "http://127.0.0.1:5000/api/productos";
-
-        async function fetchProducts() {
-            try {
-                const res = await fetch(API_URL);
-                const productos = await res.json();
-                renderTable(productos);
-            } catch (err) {
-                console.error("Error al cargar productos:", err);
-            }
+        function abrirModalNuevoItem() {
+            alert('Abre formulario compacto para registrar nuevo ítem.');
         }
-
-        function renderTable(productos) {
-            const tbody = document.getElementById('inventory-table');
-            tbody.innerHTML = '';
-            
-            productos.forEach(p => {
-                const imgSrc = p.imagen ? `http://127.0.0.1:5000/uploads/${p.imagen}` : 'https://via.placeholder.com/50?text=Sin+Foto';
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td><img src="${imgSrc}" class="img-preview" alt="Foto"></td>
-                    <td><strong>${p.nombre}</strong> (${p.unidad})</td>
-                    <td>${p.categoria}</td>
-                    <td>$${p.precio.toFixed(2)}</td>
-                    <td><button class="btn-delete" onclick="deleteProduct(${p.id})">Eliminar</button></td>
-                `;
-                tbody.appendChild(row);
-            });
-        }
-
-        document.getElementById('product-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const formData = new FormData();
-            formData.append('nombre', document.getElementById('nombre').value);
-            formData.append('precio', document.getElementById('precio').value);
-            formData.append('categoria', document.getElementById('categoria').value);
-            formData.append('unidad', document.getElementById('unidad').value);
-            
-            const fileInput = document.getElementById('imagen');
-            if (fileInput.files[0]) {
-                formData.append('imagen', fileInput.files[0]);
-            }
-
-            await fetch(API_URL, {
-                method: 'POST',
-                body: formData // FormData envía multipart/form-data automáticamente
-            });
-
-            document.getElementById('product-form').reset();
-            fetchProducts();
-        });
-
-        async function deleteProduct(id) {
-            if(confirm("¿Seguro que deseas eliminar este producto?")) {
-                await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
-                fetchProducts();
-            }
-        }
-
-        fetchProducts();
     </script>
 </body>
 </html>
