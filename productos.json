@@ -1,1 +1,154 @@
-[]
+[[
+  {
+    "id": 1,
+    "nombre": "Queso Guayanés",
+    "precio": 5.00,
+    "categoria": "charcuteria",
+    "unidad": "Kg",
+    "imagen": "queso_guayanes.jpg"
+  },
+  {
+    "id": 2,
+    "nombre": "Torta de Piña Completa",
+    "precio": 12.00,
+    "categoria": "viveres",
+    "unidad": "Unidad",
+    "imagen": "torta_pina.jpg"
+  },
+  {
+    "id": 3,
+    "nombre": "Yogur Casero Artesanal",
+    "precio": 3.00,
+    "categoria": "viveres",
+    "unidad": "Unidad",
+    "imagen": "yogur_casero.jpg"
+  },
+  {
+    "id": 4,
+    "nombre": "Porción de Torta de Chocolate",
+    "precio": 2.50,
+    "categoria": "viveres",
+    "unidad": "Unidad",
+    "imagen": "porcion_chocolate.jpg"
+  },
+  {
+    "id": 5,
+    "nombre": "Chocoflan (Torta Quesillo)",
+    "precio": 14.00,
+    "categoria": "viveres",
+    "unidad": "Unidad",
+    "imagen": "chocoflan.jpg"
+  },
+  {
+    "id": 6,
+    "nombre": "Postres en Vasito (Marquesas)",
+    "precio": 2.00,
+    "categoria": "viveres",
+    "unidad": "Unidad",
+    "imagen": "postre_vasito.jpg"
+  },
+  {
+    "id": 7,
+    "nombre": "Porción de Torta de Piña",
+    "precio": 2.50,
+    "categoria": "viveres",
+    "unidad": "Unidad",
+    "imagen": "porcion_pina.jpg"
+  },
+  {
+    "id": 8,
+    "nombre": "Torta Especial / Tres Leches",
+    "precio": 12.00,
+    "categoria": "viveres",
+    "unidad": "Unidad",
+    "imagen": "torta_especial.jpg"
+  },
+  {
+    "id": 9,
+    "nombre": "Brownie de Chocolate",
+    "precio": 3.00,
+    "categoria": "viveres",
+    "unidad": "Unidad",
+    "imagen": "brownie.jpg"
+  },
+  {
+    "id": 10,
+    "nombre": "Chuleta Ahumada de Cerdo",
+    "precio": 7.50,
+    "categoria": "charcuteria",
+    "unidad": "Kg",
+    "imagen": "chuleta_ahumada.jpg"
+  },
+  {
+    "id": 11,
+    "nombre": "Queso Arepero Fresco",
+    "precio": 5.00,
+    "categoria": "quesos",
+    "unidad": "Kg",
+    "imagen": "queso_arepero.jpg"
+  },
+  {
+    "id": 12,
+    "nombre": "Queso Duro / Semi-duro",
+    "precio": 6.00,
+    "categoria": "quesos",
+    "unidad": "Kg",
+    "imagen": "queso_duro.jpg"
+  },
+  {
+    "id": 13,
+    "nombre": "Cartón de Huevos",
+    "precio": 4.50,
+    "categoria": "viveres",
+    "unidad": "Cartón",
+    "imagen": "huevos.jpg"
+  },
+  {
+    "id": 14,
+    "nombre": "Combo Proteico Variado (Carnes y Pollo)",
+    "precio": 15.00,
+    "categoria": "viveres",
+    "unidad": "Combo",
+    "imagen": "combo_carnes.jpg"
+  },
+  {
+    "id": 15,
+    "nombre": "Combo Charcutero (Queso, Jamón, Salchichas, Huevos)",
+    "precio": 12.00,
+    "categoria": "charcuteria",
+    "unidad": "Combo",
+    "imagen": "combo_charcutero.jpg"
+  },
+  {
+    "id": 16,
+    "nombre": "Pizza Familiar Preparada con Jamón y Maíz",
+    "precio": 8.00,
+    "categoria": "hogar",
+    "unidad": "Unidad",
+    "imagen": "pizza.jpg"
+  },
+  {
+    "id": 17,
+    "nombre": "Pasteles / Empanadas Congeladas (Bandeja)",
+    "precio": 4.00,
+    "categoria": "viveres",
+    "unidad": "Bandeja",
+    "imagen": "pasteles_congelados.jpg"
+  },
+  {
+    "id": 18,
+    "nombre": "Tequeños Artesanales (Oferta)",
+    "precio": 3.00,
+    "categoria": "viveres",
+    "unidad": "Bandeja",
+    "imagen": "tequenos.jpg"
+  },
+  {
+    "id": 19,
+    "nombre": "Discos para Pasteles / Empanadas",
+    "precio": 2.50,
+    "categoria": "viveres",
+    "unidad": "Paquete",
+    "imagen": "discos_pasteles.jpg"
+  }
+]]
