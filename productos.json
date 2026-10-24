@@ -9,70 +9,6 @@
   },
   {
     "id": 2,
-    "nombre": "Torta de Piña Completa",
-    "precio": 15.00,
-    "categoria": "viveres",
-    "unidad": "Unidad",
-    "imagen": "WhatsApp Image 2026-10-21 at 10.38.23 PM (3).jpeg"
-  },
-  {
-    "id": 3,
-    "nombre": "Yogur Casero Artesanal",
-    "precio": 6.00,
-    "categoria": "viveres",
-    "unidad": "Unidad",
-    "imagen": "WhatsApp Image 2026-10-21 at 10.38.23 PM (2).jpeg"
-  },
-  {
-    "id": 4,
-    "nombre": "Porción de Torta de Chocolate",
-    "precio": 3.50,
-    "categoria": "viveres",
-    "unidad": "Unidad",
-    "imagen": "WhatsApp Image 2026-10-21 at 10.38.22 PM (11).jpeg"
-  },
-  {
-    "id": 5,
-    "nombre": "Chocoflan (Torta Quesillo)",
-    "precio": 15.00,
-    "categoria": "viveres",
-    "unidad": "Unidad",
-    "imagen": "WhatsApp Image 2026-10-21 at 10.38.22 PM (10).jpeg"
-  },
-  {
-    "id": 6,
-    "nombre": "Postres en Vasito (Marquesas)",
-    "precio": 3.00,
-    "categoria": "viveres",
-    "unidad": "Unidad",
-    "imagen": "WhatsApp Image 2026-10-21 at 10.38.22 PM (9).jpeg"
-  },
-  {
-    "id": 7,
-    "nombre": "Porción de Torta de Piña",
-    "precio": 3.50,
-    "categoria": "viveres",
-    "unidad": "Unidad",
-    "imagen": "WhatsApp Image 2026-10-21 at 10.38.22 PM (7).jpeg"
-  },
-  {
-    "id": 8,
-    "nombre": "Torta Especial / Tres Leches",
-    "precio": 15.00,
-    "categoria": "viveres",
-    "unidad": "Unidad",
-    "imagen": "WhatsApp Image 2026-10-21 at 10.38.22 PM (8).jpeg"
-  },
-  {
-    "id": 9,
-    "nombre": "Brownie de Chocolate",
-    "precio": 3.00,
-    "categoria": "viveres",
-    "unidad": "Unidad",
-    "imagen": "WhatsApp Image 2026-10-21 at 10.31.31 PM (1).jpeg"
-  },
-  {
-    "id": 10,
     "nombre": "Chuleta Ahumada de Cerdo",
     "precio": 9.00,
     "categoria": "charcuteria",
@@ -80,7 +16,7 @@
     "imagen": "WhatsApp Image 2026-10-21 at 10.32.41 PM.jpeg"
   },
   {
-    "id": 11,
+    "id": 3,
     "nombre": "Queso Arepero Fresco",
     "precio": 5.00,
     "categoria": "quesos",
@@ -88,7 +24,7 @@
     "imagen": "WhatsApp Image 2026-10-21 at 10.32.40 PM (2).jpeg"
   },
   {
-    "id": 12,
+    "id": 4,
     "nombre": "Queso Duro / Semi-duro",
     "precio": 8.00,
     "categoria": "quesos",
@@ -96,7 +32,7 @@
     "imagen": "WhatsApp Image 2026-10-21 at 10.32.40 PM (1).jpeg"
   },
   {
-    "id": 13,
+    "id": 5,
     "nombre": "Cartón de Huevos",
     "precio": 8.50,
     "categoria": "viveres",
@@ -104,7 +40,7 @@
     "imagen": "WhatsApp Image 2026-10-21 at 10.32.40 PM.jpeg"
   },
   {
-    "id": 14,
+    "id": 6,
     "nombre": "Combo Proteico Variado (Carnes y Pollo)",
     "precio": 35.00,
     "categoria": "viveres",
@@ -112,7 +48,15 @@
     "imagen": "WhatsApp Image 2026-10-21 at 10.31.31 PM.jpeg"
   },
   {
-    "id": 15,
+    "id": 7,
+    "nombre": "Brownie de Chocolate",
+    "precio": 3.00,
+    "categoria": "viveres",
+    "unidad": "Unidad",
+    "imagen": "WhatsApp Image 2026-10-21 at 10.31.31 PM (1).jpeg"
+  },
+  {
+    "id": 8,
     "nombre": "Combo Charcutero",
     "precio": 38.00,
     "categoria": "charcuteria",
@@ -120,7 +64,7 @@
     "imagen": "WhatsApp Image 2026-10-21 at 10.30.44 PM.jpeg"
   },
   {
-    "id": 16,
+    "id": 9,
     "nombre": "Pizza Familiar",
     "precio": 6.00,
     "categoria": "hogar",
@@ -128,7 +72,7 @@
     "imagen": "WhatsApp Image 2026-10-21 at 10.30.16 PM.jpeg"
   },
   {
-    "id": 17,
+    "id": 10,
     "nombre": "Pasteles / Empanadas Congeladas",
     "precio": 6.00,
     "categoria": "viveres",
@@ -136,11 +80,67 @@
     "imagen": "WhatsApp Image 2026-10-21 at 10.29.03 PM (4).jpeg"
   },
   {
-    "id": 18,
+    "id": 11,
     "nombre": "Tequeños Artesanales",
     "precio": 6.00,
     "categoria": "viveres",
     "unidad": "Bandeja",
     "imagen": "WhatsApp Image 2026-10-21 at 10.29.03 PM (3).jpeg"
+  },
+  {
+    "id": 12,
+    "nombre": "Torta de Piña Completa",
+    "precio": 15.00,
+    "categoria": "viveres",
+    "unidad": "Unidad",
+    "imagen": "WhatsApp Image 2026-10-21 at 10.38.23 PM (3).jpeg"
+  },
+  {
+    "id": 13,
+    "nombre": "Yogur Casero Artesanal",
+    "precio": 6.00,
+    "categoria": "viveres",
+    "unidad": "Unidad",
+    "imagen": "WhatsApp Image 2026-10-21 at 10.38.23 PM (2).jpeg"
+  },
+  {
+    "id": 14,
+    "nombre": "Porción de Torta de Chocolate",
+    "precio": 3.50,
+    "categoria": "viveres",
+    "unidad": "Unidad",
+    "imagen": "WhatsApp Image 2026-10-21 at 10.38.22 PM (11).jpeg"
+  },
+  {
+    "id": 15,
+    "nombre": "Chocoflan (Torta Quesillo)",
+    "precio": 15.00,
+    "categoria": "viveres",
+    "unidad": "Unidad",
+    "imagen": "WhatsApp Image 2026-10-21 at 10.38.22 PM (10).jpeg"
+  },
+  {
+    "id": 16,
+    "nombre": "Postres en Vasito (Marquesas)",
+    "precio": 3.00,
+    "categoria": "viveres",
+    "unidad": "Unidad",
+    "imagen": "WhatsApp Image 2026-10-21 at 10.38.22 PM (9).jpeg"
+  },
+  {
+    "id": 17,
+    "nombre": "Torta Especial / Tres Leches",
+    "precio": 15.00,
+    "categoria": "viveres",
+    "unidad": "Unidad",
+    "imagen": "WhatsApp Image 2026-10-21 at 10.38.22 PM (8).jpeg"
+  },
+  {
+    "id": 18,
+    "nombre": "Porción de Torta de Piña",
+    "precio": 3.50,
+    "categoria": "viveres",
+    "unidad": "Unidad",
+    "imagen": "WhatsApp Image 2026-10-21 at 10.38.22 PM (7).jpeg"
   }
 ]
