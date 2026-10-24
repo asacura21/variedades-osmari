@@ -3,503 +3,244 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VARIEDADES OSMARI // Catálogo Oficial</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>Variedades Osmari</title>
     <style>
-        :root {
-            --bg-deep: #05070b;
-            --bg-card: rgba(13, 20, 35, 0.82);
-            --neon-cyan: #00f0ff;
-            --neon-green: #00ff66;
-            --neon-pink: #ff007f;
-            --text-main: #e2e8f0;
-            --text-muted: #94a3b8;
-            --border-glow: rgba(0, 240, 255, 0.3);
-        }
-
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
-
         body {
-            background-color: #05070b;
-            background-image: 
-                linear-gradient(rgba(5, 7, 11, 0.88), rgba(5, 7, 11, 0.94)), 
-                url('https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=1200&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            color: var(--text-main);
-            min-height: 100vh;
-            padding-bottom: 280px;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
         }
-
         header {
-            background: rgba(5, 7, 11, 0.85);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border-glow);
-            padding: 1.2rem;
+            background-color: #ffc107;
+            color: #333;
+            padding: 20px;
             text-align: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
         }
-
-        header h1 {
-            color: var(--neon-cyan);
-            font-size: 1.6rem;
-            letter-spacing: 2px;
-            text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
-            text-transform: uppercase;
-        }
-
-        header p { color: var(--text-muted); font-size: 0.85rem; margin-top: 4px; }
-
-        .container { max-width: 1100px; margin: 25px auto; padding: 0 15px; }
-
-        /* MENÚ DESPLEGABLE TIPO BDV (ESTILO VERTICAL) */
-        .menu-dropdown-container {
-            margin-bottom: 25px;
-            position: relative;
-        }
-
-        .btn-toggle-cat {
-            background: rgba(13, 20, 35, 0.9);
-            border: 1px solid var(--neon-cyan);
-            color: var(--neon-cyan);
-            width: 100%;
-            padding: 14px 20px;
-            border-radius: 10px;
-            font-size: 1.05rem;
-            font-weight: 700;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            letter-spacing: 1px;
-            box-shadow: 0 0 15px rgba(0, 240, 255, 0.15);
-            transition: all 0.3s ease;
-        }
-
-        .btn-toggle-cat:hover {
-            background: rgba(0, 240, 255, 0.15);
-            box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
-        }
-
-        .categories-dropdown {
-            display: none;
-            flex-direction: column;
-            gap: 6px;
-            background: rgba(8, 12, 20, 0.95);
-            backdrop-filter: blur(15px);
-            border: 1px solid var(--border-glow);
-            border-radius: 10px;
-            padding: 10px;
-            margin-top: 8px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
-            animation: fadeIn 0.3s ease;
-        }
-
-        .categories-dropdown.show { display: flex; }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-8px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .cat-btn {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            color: var(--text-main);
-            padding: 12px 18px;
-            border-radius: 8px;
-            cursor: pointer;
-            text-align: left;
-            font-size: 0.95rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            transition: all 0.2s ease;
-        }
-
-        .cat-btn i { color: var(--neon-cyan); width: 20px; text-align: center; }
-
-        .cat-btn:hover {
-            background: rgba(0, 240, 255, 0.1);
-            border-color: var(--neon-cyan);
-            color: var(--neon-cyan);
-            padding-left: 22px;
-        }
-
-        .cat-btn.active {
-            background: rgba(0, 240, 255, 0.2);
-            border-color: var(--neon-cyan);
-            color: var(--neon-cyan);
-            box-shadow: 0 0 12px rgba(0, 240, 255, 0.2);
-        }
-
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 20px;
-        }
-
-        .product-card {
-            background: var(--bg-card);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 14px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .product-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--neon-cyan);
-            box-shadow: 0 8px 25px rgba(0, 240, 255, 0.2);
-        }
-
-        .product-img {
-            width: 100%;
-            height: 160px;
-            object-fit: cover;
-            background: #111;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .product-info { padding: 15px; }
-        .product-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 6px; color: #fff; }
-        .product-price { color: var(--neon-cyan); font-size: 1.2rem; font-weight: bold; margin: 8px 0; text-shadow: 0 0 8px rgba(0, 240, 255, 0.3); }
-
-        .add-btn {
-            background: linear-gradient(135deg, rgba(0, 240, 255, 0.25), rgba(0, 240, 255, 0.05));
-            border: 1px solid var(--neon-cyan);
-            color: var(--neon-cyan);
-            padding: 10px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-            width: 100%;
-            margin-top: 10px;
-            transition: all 0.2s ease;
-        }
-
-        .add-btn:hover {
-            background: var(--neon-cyan);
-            color: var(--bg-deep);
-            box-shadow: 0 0 15px var(--neon-cyan);
-        }
-
-        .cart-section {
-            background: rgba(8, 12, 20, 0.96);
-            backdrop-filter: blur(18px);
-            border-top: 1px solid var(--border-glow);
+        
+        /* Menú desplegable en la esquina superior */
+        .menu-esquina {
             position: fixed;
-            bottom: 0; left: 0; right: 0;
-            padding: 15px 20px;
-            box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.85);
-            max-width: 1100px;
-            margin: 0 auto;
-            border-top-left-radius: 16px;
-            border-top-right-radius: 16px;
+            top: 15px;
+            right: 15px;
+            z-index: 1000;
         }
-
-        .cart-summary { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 1rem; }
-        .cart-summary span span { color: var(--neon-green); font-weight: bold; text-shadow: 0 0 8px rgba(0, 255, 102, 0.3); }
-
-        /* DATOS PAGO MÓVIL */
-        .pago-info-box {
-            background: rgba(0, 240, 255, 0.06);
-            border: 1px solid var(--neon-cyan);
-            border-radius: 8px;
-            padding: 10px 15px;
-            margin-bottom: 12px;
-            font-size: 0.85rem;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .pago-item { display: flex; align-items: center; gap: 6px; }
-        .btn-copy {
-            background: rgba(0, 240, 255, 0.2);
-            border: 1px solid var(--neon-cyan);
-            color: var(--neon-cyan);
-            padding: 2px 8px;
-            border-radius: 4px;
+        .btn-menu {
+            background: #fff;
+            border: 2px solid #ffc107;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-weight: bold;
             cursor: pointer;
-            font-size: 0.75rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
-        .btn-copy:hover { background: var(--neon-cyan); color: #000; }
-
-        .client-inputs { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 10px; margin-bottom: 12px; }
-        .client-inputs input, .client-inputs select {
-            background: rgba(255, 255, 255, 0.07);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            color: white;
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            border-radius: 5px;
+            margin-top: 5px;
+            width: 180px;
+            overflow: hidden;
+        }
+        .dropdown-content a {
+            display: block;
             padding: 10px;
+            text-decoration: none;
+            color: #333;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+        }
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Contenedor de productos */
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+        .productos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+        }
+        .producto-card {
+            background: white;
             border-radius: 8px;
+            padding: 12px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        /* Imágenes más pequeñas y proporcionadas */
+        .producto-card img {
             width: 100%;
-            outline: none;
-            transition: border-color 0.2s;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+        
+        .producto-card h3 {
+            font-size: 16px;
+            margin: 10px 0 5px 0;
+        }
+        .producto-card p {
+            margin: 5px 0;
+            font-size: 14px;
         }
 
-        .client-inputs input:focus, .client-inputs select:focus {
-            border-color: var(--neon-cyan);
-            box-shadow: 0 0 8px rgba(0, 240, 255, 0.3);
+        /* Sección de Pago Móvil */
+        .seccion-pago {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 30px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .seccion-pago ul {
+            padding-left: 20px;
         }
 
-        .client-inputs option { background: #0f172a; color: white; }
-
-        .checkout-btn {
-            background: linear-gradient(135deg, #00ff66, #00b347);
-            color: #000;
+        /* Formulario vertical para datos del cliente */
+        .checkout-form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .checkout-form label {
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .checkout-form input, .checkout-form textarea {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .btn-enviar {
+            background: #28a745;
+            color: white;
+            padding: 12px;
             border: none;
-            width: 100%;
-            padding: 14px;
-            border-radius: 8px;
-            font-size: 1.05rem;
-            font-weight: 800;
+            border-radius: 5px;
+            font-weight: bold;
             cursor: pointer;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 20px rgba(0, 255, 102, 0.3);
+            font-size: 16px;
         }
-
-        .checkout-btn:hover {
-            transform: scale(1.01);
-            box-shadow: 0 0 30px rgba(0, 255, 102, 0.6);
-        }
-
-        @media (max-width: 768px) {
-            .client-inputs { grid-template-columns: 1fr; }
-            body { padding-bottom: 380px; }
+        .btn-enviar:hover {
+            background: #218838;
         }
     </style>
 </head>
 <body>
 
+    <!-- Menú Desplegable de Categorías en la Esquina -->
+    <div class="menu-esquina">
+        <button class="btn-menu" onclick="toggleMenu()">📂 Categorías ▼</button>
+        <div id="dropdown-categorias" class="dropdown-content">
+            <a href="#" onclick="filtrarCategoria('todos')">Todo el catálogo</a>
+            <a href="#" onclick="filtrarCategoria('quesos')">Quesos</a>
+            <a href="#" onclick="filtrarCategoria('charcuteria')">Charcutería</a>
+            <a href="#" onclick="filtrarCategoria('viveres')">Víveres y Postres</a>
+        </div>
+    </div>
+
     <header>
-        <h1>⚡ Variedades Osmari ⚡</h1>
-        <p>Sistema de Pedidos Autónomo v2.0</p>
+        <h1>Variedades Osmari</h1>
+        <p>¡Los mejores productos directo a tu puerta!</p>
     </header>
 
     <div class="container">
-        <!-- MENÚ DESPLEGABLE VERTICAL DE CATEGORÍAS -->
-        <div class="menu-dropdown-container">
-            <button class="btn-toggle-cat" onclick="toggleCategoriesMenu()">
-                <span><i class="fa-solid fa-bars"></i> SECCIONES DEL CATÁLOGO</span>
-                <span id="selected-cat-label" style="font-size: 0.85rem; color: var(--text-muted);">[ TODOS ]</span>
-            </button>
-
-            <div class="categories-dropdown" id="categories-menu">
-                <button class="cat-btn active" onclick="selectCategory('todos', '[ TODOS ]', event)"><i class="fa-solid fa-border-all"></i> Todos los Productos</button>
-                <button class="cat-btn" onclick="selectCategory('ropa', 'Ropa y Moda', event)"><i class="fa-solid fa-shirt"></i> Ropa y Moda</button>
-                <button class="cat-btn" onclick="selectCategory('lenceria', 'Lencería', event)"><i class="fa-solid fa-vest"></i> Lencería</button>
-                <button class="cat-btn" onclick="selectCategory('cremas', 'Cuidado Personal / Cremas', event)"><i class="fa-solid fa-pump-soap"></i> Cuidado Personal / Cremas</button>
-                <button class="cat-btn" onclick="selectCategory('charcuteria', 'Charcutería', event)"><i class="fa-solid fa-drumstick-bite"></i> Charcutería</button>
-                <button class="cat-btn" onclick="selectCategory('quesos', 'Quesos', event)"><i class="fa-solid fa-cheese"></i> Quesos</button>
-                <button class="cat-btn" onclick="selectCategory('viveres', 'Víveres', event)"><i class="fa-solid fa-basket-shopping"></i> Víveres</button>
-                <button class="cat-btn" onclick="selectCategory('hogar', 'Hogar / Varios', event)"><i class="fa-solid fa-house"></i> Hogar / Varios</button>
-            </div>
+        <h2>Catálogo de Productos</h2>
+        
+        <!-- Grilla donde se muestran los productos -->
+        <div class="productos-grid" id="grid-productos">
+            <!-- Aquí cargan dinámicamente tus productos -->
         </div>
 
-        <div class="products-grid" id="products-container"></div>
-    </div>
-
-    <div class="cart-section">
-        <div class="cart-summary">
-            <span>Items en Nodo: <span id="cart-count">0</span></span>
-            <span>Total Créditos: $<span id="cart-total">0.00</span></span>
+        <!-- Datos de Pago Móvil con varios bancos -->
+        <div class="seccion-pago">
+            <h3>📱 Datos para Pago Móvil</h3>
+            <p><strong>Teléfono:</strong> 0412-962.46.07</p>
+            <p><strong>Cédula:</strong> V-XXXXXXXX</p>
+            <p><strong>Bancos disponibles para transferir:</strong></p>
+            <ul>
+                <li>🏦 <strong>Banco de Venezuela (0102)</strong></li>
+                <li>🏦 <strong>Banesco (0134)</strong></li>
+                <li>🏦 <strong>Banco Mercantil (0105)</strong></li>
+                <li>🏦 <strong>BBVA Provincial (0108)</strong></li>
+            </ul>
         </div>
 
-        <div class="pago-info-box" id="pago-box">
-            <span><strong>🏦 BDV (0102)</strong></span>
-            <div class="pago-item">
-                <span>V-17758545</span>
-                <button class="btn-copy" onclick="copiarTexto('17758545')">Copiar</button>
-            </div>
-            <div class="pago-item">
-                <span>04220082464</span>
-                <button class="btn-copy" onclick="copiarTexto('04220082464')">Copiar</button>
-            </div>
-        </div>
+        <!-- Formulario Vertical del Cliente -->
+        <div class="checkout-form">
+            <h3>📝 Datos de Envío y Cliente</h3>
+            <label for="nombre">Nombre y Apellido:</label>
+            <input type="text" id="nombre" placeholder="Ej. María Pérez" required>
 
-        <div class="client-inputs">
-            <input type="text" id="client-name" placeholder="Nombre del Cliente">
-            <input type="text" id="client-address" placeholder="Dirección de Entrega">
-            <select id="payment-method">
-                <option value="Pago Móvil">Pago Móvil (Banco Venezuela)</option>
-                <option value="Efectivo $">Efectivo ($)</option>
-                <option value="Zelle">Zelle</option>
-            </select>
-            <input type="text" id="payment-ref" placeholder="N° Referencia (Pago Móvil)">
-        </div>
+            <label for="telefono">Teléfono de Contacto:</label>
+            <input type="tel" id="telefono" placeholder="Ej. 0412-1234567" required>
 
-        <button class="checkout-btn" onclick="sendWhatsAppOrder()">
-            TRANSMITIR PEDIDO POR WHATSAPP 🚀
-        </button>
+            <label for="direccion">Dirección de Entrega:</label>
+            <textarea id="direccion" rows="3" placeholder="Calle, número de casa, punto de referencia..." required></textarea>
+
+            <button type="button" class="btn-enviar" onclick="enviarPedidoWhatsApp()">Enviar Pedido por WhatsApp</button>
+        </div>
     </div>
 
     <script>
-        const PHONE_NUMBER = "584220082464"; 
-        const API_URL = `${window.location.origin}/api/productos`;
-
-        let products = [];
-        let cart = {};
-
-        function toggleCategoriesMenu() {
-            const menu = document.getElementById('categories-menu');
-            menu.classList.toggle('show');
+        // Función para abrir y cerrar el menú desplegable de la esquina
+        function toggleMenu() {
+            var menu = document.getElementById('dropdown-categorias');
+            menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
         }
 
-        function selectCategory(cat, labelText, event) {
-            document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
-            event.currentTarget.classList.add('active');
-            
-            document.getElementById('selected-cat-label').innerText = labelText;
-            document.getElementById('categories-menu').classList.remove('show');
-
-            if(cat === 'todos') {
-                renderProducts(products);
-            } else {
-                renderProducts(products.filter(p => p.categoria === cat));
+        // Cerrar menú si hace clic fuera
+        window.onclick = function(event) {
+            if (!event.target.matches('.btn-menu')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.style.display === 'block') {
+                        openDropdown.style.display = 'none';
+                    }
+                }
             }
         }
 
-        function copiarTexto(texto) {
-            navigator.clipboard.writeText(texto);
-            alert("¡Copiado al portapapeles: " + texto + "!");
+        // Funciones de filtrado y carga (puedes adaptarlas a tu script actual)
+        function filtrarCategoria(categoria) {
+            console.log("Filtrando por: " + categoria);
+            // Aquí puedes conectar tu lógica de filtrado de productos
         }
 
-        async function loadProducts() {
-            try {
-                const res = await fetch(API_URL);
-                products = await res.json();
-                renderProducts(products);
-            } catch (err) {
-                console.error("Error cargando productos:", err);
-            }
-        }
+        function enviarPedidoWhatsApp() {
+            const nombre = document.getElementById('nombre').value;
+            const telefono = document.getElementById('telefono').value;
+            const direccion = document.getElementById('direccion').value;
 
-        function renderProducts(items) {
-            const container = document.getElementById('products-container');
-            container.innerHTML = '';
-
-            if(items.length === 0) {
-                container.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 40px;">No hay productos registrados en esta categoría.</p>';
+            if(!nombre || !telefono || !direccion) {
+                alert('Por favor completa todos los datos de envío.');
                 return;
             }
 
-            items.forEach(product => {
-                const imgSrc = product.imagen 
-                    ? `${window.location.origin}/uploads/${product.imagen}` 
-                    : 'https://via.placeholder.com/200x150?text=VARIEDADES+OSMARI';
-
-                const card = document.createElement('div');
-                card.className = 'product-card';
-                card.innerHTML = `
-                    <img src="${imgSrc}" class="product-img" alt="${product.nombre}">
-                    <div class="product-info">
-                        <div class="product-title">${product.nombre}</div>
-                        <div class="product-price">$${product.precio.toFixed(2)} <span style="font-size:0.8rem; color:var(--text-muted)">/ ${product.unidad}</span></div>
-                        <button class="add-btn" onclick="addToCart(${product.id})">+ AGREGAR</button>
-                    </div>
-                `;
-                container.appendChild(card);
-            });
+            alert('¡Pedido listo para enviar, ' + nombre + '!');
         }
-
-        function addToCart(id) {
-            if(cart[id]) {
-                cart[id].qty += 1;
-            } else {
-                const product = products.find(p => p.id === id);
-                cart[id] = { ...product, qty: 1 };
-            }
-            updateCartUI();
-        }
-
-        function updateCartUI() {
-            let count = 0;
-            let total = 0;
-
-            Object.values(cart).forEach(item => {
-                count += item.qty;
-                total += item.precio * item.qty;
-            });
-
-            document.getElementById('cart-count').innerText = count;
-            document.getElementById('cart-total').innerText = total.toFixed(2);
-        }
-
-        async function sendWhatsAppOrder() {
-            const name = document.getElementById('client-name').value.trim();
-            const address = document.getElementById('client-address').value.trim();
-            const payment = document.getElementById('payment-method').value;
-            const ref = document.getElementById('payment-ref').value.trim();
-
-            if (Object.keys(cart).length === 0) {
-                alert("El carrito de compras está vacío.");
-                return;
-            }
-
-            if (!name || !address) {
-                alert("Por favor completa tu nombre y dirección de entrega.");
-                return;
-            }
-
-            let total = 0;
-            let resumenProductos = [];
-            Object.values(cart).forEach(item => {
-                const subtotal = item.precio * item.qty;
-                total += subtotal;
-                resumenProductos.push(`${item.nombre} (x${item.qty})`);
-            });
-
-            // Guardado automático en ventas.csv
-            try {
-                await fetch(`${window.location.origin}/api/registrar-pago`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        cliente: name,
-                        direccion: address,
-                        metodo: payment,
-                        referencia: ref,
-                        monto: total.toFixed(2),
-                        detalles: resumenProductos.join(', ')
-                    })
-                });
-            } catch (err) {
-                console.error("Error guardando registro:", err);
-            }
-
-            let message = "TRANSMISION DE PEDIDO - VARIEDADES OSMARI\n\n";
-            message += "Cliente: " + name + "\n";
-            message += "Ubicacion: " + address + "\n";
-            message += "Metodo de Pago: " + payment + "\n";
-            if(ref) {
-                message += "Referencia Pago: " + ref + "\n";
-            }
-            message += "\nDetalle de la Orden:\n";
-
-            Object.values(cart).forEach(item => {
-                const subtotal = item.precio * item.qty;
-                message += "- " + item.nombre + " x" + item.qty + " = $" + subtotal.toFixed(2) + "\n";
-            });
-
-            message += "\nTOTAL A PAGAR: $" + total.toFixed(2);
-
-            const encodedMessage = encodeURIComponent(message);
-            window.open("https://wa.me/" + PHONE_NUMBER + "?text=" + encodedMessage, '_blank');
-        }
-
-        loadProducts();
     </script>
 </body>
 </html>
