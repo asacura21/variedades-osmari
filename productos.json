@@ -5,7 +5,7 @@
     "precio": 5.00,
     "categoria": "charcuteria",
     "unidad": "Kg",
-    "imagen": "queso_guayanes.jpg"
+    "imagen": "queso_guayanes.jpeg"
   },
   {
     "id": 2,
@@ -13,7 +13,7 @@
     "precio": 12.00,
     "categoria": "viveres",
     "unidad": "Unidad",
-    "imagen": "torta_pina.jpg"
+    "imagen": "torta_pina.jpeg"
   },
   {
     "id": 3,
@@ -21,7 +21,7 @@
     "precio": 5.00,
     "categoria": "viveres",
     "unidad": "Unidad",
-    "imagen": "yogur_casero.jpg"
+    "imagen": "yogur_casero.jpeg"
   },
   {
     "id": 4,
@@ -29,7 +29,7 @@
     "precio": 2.50,
     "categoria": "viveres",
     "unidad": "Unidad",
-    "imagen": "porcion_chocolate.jpg"
+    "imagen": "porcion_chocolate.jpeg"
   },
   {
     "id": 5,
@@ -37,7 +37,7 @@
     "precio": 14.00,
     "categoria": "viveres",
     "unidad": "Unidad",
-    "imagen": "chocoflan.jpg"
+    "imagen": "chocoflan.jpeg"
   },
   {
     "id": 6,
@@ -45,7 +45,7 @@
     "precio": 2.00,
     "categoria": "viveres",
     "unidad": "Unidad",
-    "imagen": "postre_vasito.jpg"
+    "imagen": "postre_vasito.jpeg"
   },
   {
     "id": 7,
@@ -53,7 +53,7 @@
     "precio": 2.50,
     "categoria": "viveres",
     "unidad": "Unidad",
-    "imagen": "porcion_pina.jpg"
+    "imagen": "porcion_pina.jpeg"
   },
   {
     "id": 8,
@@ -61,7 +61,7 @@
     "precio": 12.00,
     "categoria": "viveres",
     "unidad": "Unidad",
-    "imagen": "torta_especial.jpg"
+    "imagen": "torta_especial.jpeg"
   },
   {
     "id": 9,
@@ -69,7 +69,7 @@
     "precio": 3.00,
     "categoria": "viveres",
     "unidad": "Unidad",
-    "imagen": "brownie.jpg"
+    "imagen": "brownie.jpeg"
   },
   {
     "id": 10,
@@ -77,7 +77,7 @@
     "precio": 9.0,
     "categoria": "charcuteria",
     "unidad": "Kg",
-    "imagen": "chuleta_ahumada.jpg"
+    "imagen": "chuleta_ahumada.jpeg"
   },
   {
     "id": 11,
@@ -85,7 +85,7 @@
     "precio": 5.00,
     "categoria": "quesos",
     "unidad": "Kg",
-    "imagen": "queso_arepero.jpg"
+    "imagen": "queso_arepero.jpeg"
   },
   {
     "id": 12,
@@ -93,7 +93,7 @@
     "precio": 8.00,
     "categoria": "quesos",
     "unidad": "Kg",
-    "imagen": "queso_duro.jpg"
+    "imagen": "queso_duro.jpeg"
   },
   {
     "id": 13,
@@ -101,7 +101,7 @@
     "precio": 8.00,
     "categoria": "viveres",
     "unidad": "Cartón",
-    "imagen": "huevos.jpg"
+    "imagen": "huevos.jpeg"
   },
   {
     "id": 14,
@@ -109,7 +109,7 @@
     "precio": 35.00,
     "categoria": "viveres",
     "unidad": "Combo",
-    "imagen": "combo_carnes.jpg"
+    "imagen": "combo_carnes.jpeg"
   },
   {
     "id": 15,
@@ -117,7 +117,7 @@
     "precio": 38.00,
     "categoria": "charcuteria",
     "unidad": "Combo",
-    "imagen": "combo_charcutero.jpg"
+    "imagen": "combo_charcutero.jpeg"
   },
   {
     "id": 16,
@@ -125,7 +125,7 @@
     "precio": 5.00,
     "categoria": "hogar",
     "unidad": "Unidad",
-    "imagen": "pizza.jpg"
+    "imagen": "pizza.jpeg"
   },
   {
     "id": 17,
@@ -133,7 +133,7 @@
     "precio": 6.00,
     "categoria": "viveres",
     "unidad": "Bandeja",
-    "imagen": "pasteles_congelados.jpg"
+    "imagen": "pasteles_congelados.jpeg"
   },
   {
     "id": 18,
@@ -141,7 +141,7 @@
     "precio": 6.00,
     "categoria": "viveres",
     "unidad": "Bandeja",
-    "imagen": "tequenos.jpg"
+    "imagen": "tequenos.jpeg"
   },
   {
     "id": 19,
@@ -149,6 +149,6 @@
     "precio": 2.50,
     "categoria": "viveres",
     "unidad": "Paquete",
-    "imagen": "discos_pasteles.jpg"
+    "imagen": "discos_pasteles.jpeg"
   }
 ]]
