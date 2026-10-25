@@ -1,17 +1,21 @@
 from flask import Flask, render_template, send_from_directory, jsonify, send_file, request, redirect, url_for, session
+from datetime import timedelta
 import os
 import json
 import csv
 import io
 
 app = Flask(__name__)
-app.secret_key = 'osmari_secure_key_2026'  # Clave secreta para mantener la sesión segura
+app.secret_key = 'osmari_secure_key_2026'
+
+# Configurar para que la sesión expire a los 5 minutos de inactividad
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=5)
 
 # Ruta del archivo JSON de productos
 PRODUCTOS_FILE = os.path.join(app.root_path, 'static', 'productos.json')
 
-# CLAVE DE ADMINISTRADOR (Puedes cambiarla aquí cuando quieras)
-ADMIN_PASSWORD = "admin1234"  # <--- Cambia esto por la clave secreta que prefieras
+# CLAVE DE ADMINISTRADOR
+ADMIN_PASSWORD = "admin1234"  # Puedes cambiarla aquí cuando quieras
 
 def cargar_productos():
     if os.path.exists(PRODUCTOS_FILE):
@@ -32,6 +36,7 @@ def login():
         password = request.form.get('password')
         if password == ADMIN_PASSWORD:
             session['admin_logged'] = True
+            session.permanent = True  # Activa el temporizador de 5 minutos
             return redirect(url_for('admin'))
         else:
             error = "Clave incorrecta. Inténtalo de nuevo."
@@ -43,20 +48,20 @@ def logout():
     session.pop('admin_logged', None)
     return redirect(url_for('login'))
 
-# Ruta para el panel de administración (Protegida con clave)
+# Ruta para el panel de administración (Protegida)
 @app.route('/admin')
 def admin():
     if not session.get('admin_logged'):
         return redirect(url_for('login'))
     return render_template('admin.html')
 
-# API opcional para obtener la lista de productos desde el servidor
+# API para obtener la lista de productos
 @app.route('/api/productos', methods=['GET'])
 def api_get_productos():
     productos = cargar_productos()
     return jsonify(productos)
 
-# Ruta para descargar el reporte de inventario en archivo CSV (Protegida también)
+# Ruta para descargar el reporte de inventario en archivo CSV
 @app.route('/descargar_reporte')
 def descargar_reporte():
     if not session.get('admin_logged'):
