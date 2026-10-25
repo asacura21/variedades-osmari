@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración - Variedades Osmari</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-color: #f8fafc;
+            --accent-neon: #38bdf8;
+            --neon-glow: rgba(56, 189, 248, 0.4);
+            --header-gradient: linear-gradient(135deg, #3b82f6, #8b5cf6, #ec4899);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        header {
+            background: var(--header-gradient);
+            color: white;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 4px 20px var(--neon-glow);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        .acciones-admin {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .btn-reporte {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+            transition: transform 0.1s;
+        }
+        .btn-reporte:hover {
+            opacity: 0.9;
+            transform: scale(1.02);
+        }
+
+        .btn-volver {
+            background: rgba(30, 41, 59, 0.9);
+            color: var(--accent-neon);
+            border: 1px solid var(--accent-neon);
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 0 10px var(--neon-glow);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 14px;
+        }
+
+        th {
+            background-color: rgba(15, 23, 42, 0.8);
+            color: var(--accent-neon);
+            font-weight: bold;
+        }
+
+        tr:hover {
+            background-color: rgba(56, 189, 248, 0.05);
+        }
+
+        img.admin-img {
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Panel de Administración</h1>
+        <p>Variedades Osmari - Gestión de Inventario</p>
+    </header>
+
+    <div class="container">
+        <div class="acciones-admin">
+            <a href="/" class="btn-volver">← Volver a la Tienda</a>
+            <a href="/descargar_reporte" class="btn-reporte">📥 Descargar Reporte CSV</a>
+        </div>
+
+        <h2>Inventario de Productos</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Imagen</th>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Categoría</th>
+                    <th>Unidad</th>
+                </tr>
+            </thead>
+            <tbody id="tabla-productos">
+                <!-- Los productos se cargarán dinámicamente -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch('/api/productos')
+                .then(response => response.json())
+                .then(productos => {
+                    const tbody = document.getElementById('tabla-productos');
+                    tbody.innerHTML = '';
+                    
+                    productos.forEach(prod => {
+                        tbody.innerHTML += `
+                            <tr>
+                                <td><img src="/static/uploads/${prod.imagen}" alt="${prod.nombre}" class="admin-img"></td>
+                                <td>${prod.id}</td>
+                                <td><strong>${prod.nombre}</strong></td>
+                                <td>$${prod.precio.toFixed(2)}</td>
+                                <td>${prod.categoria}</td>
+                                <td>${prod.unidad}</td>
+                            </tr>
+                        `;
+                    });
+                })
+                .catch(error => console.error("Error al cargar inventario:", error));
+        });
+    </script>
+</body>
+</html>
