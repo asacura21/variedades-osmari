@@ -98,7 +98,7 @@
   {
     "id": 13,
     "nombre": "Brownie de Chocolate",
-    "precio": 3.00,
+    "precio": 3.50,
     "categoria": "postres",
     "unidad": "Unidad",
     "imagen": "13.jpeg"
@@ -106,7 +106,7 @@
   {
     "id": 14,
     "nombre": "Postre en Vasito Variado",
-    "precio": 3.00,
+    "precio": 3.0ñ50,
     "categoria": "postres",
     "unidad": "Unidad",
     "imagen": "14.jpeg"
@@ -169,7 +169,7 @@
   },
   {
     "id": 22,
-    "nombre": "Discos para Empanadas",
+    "nombre": "masa para pastelitos",
     "precio": 3.00,
     "categoria": "viveres",
     "unidad": "Paquete",
@@ -177,7 +177,7 @@
   },
   {
     "id": 23,
-    "nombre": "Tequeños Especiales",
+    "nombre": "Tequeños doble queso",
     "precio": 5.00,
     "categoria": "viveres",
     "unidad": "Bandeja",
@@ -185,7 +185,7 @@
   },
   {
     "id": 24,
-    "nombre": "Tequeños Familiares",
+    "nombre": "Tequeños Fiesteros 50 unidades",
     "precio": 6.00,
     "categoria": "viveres",
     "unidad": "Bandeja",
@@ -193,7 +193,7 @@
   },
   {
     "id": 25,
-    "nombre": "Tequeños Bandeja Grande",
+    "nombre": "Tequejumbos",
     "precio": 6.00,
     "categoria": "viveres",
     "unidad": "Bandeja",
@@ -201,7 +201,7 @@
   },
   {
     "id": 26,
-    "nombre": "Pasteles de Pollo Congelados",
+    "nombre": "Pastelones de Pollo,jamón con queso, pizza Congelados",
     "precio": 6.00,
     "categoria": "viveres",
     "unidad": "Bandeja",
