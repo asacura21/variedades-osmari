@@ -188,7 +188,7 @@
             font-size: 14px;
             color: var(--accent-neon);
         }
-        .checkout-form input, .checkout-form textarea {
+        .checkout-form input, .checkout-form textarea, .checkout-form select {
             padding: 10px;
             border-radius: 6px;
             border: 1px solid #475569;
@@ -198,7 +198,7 @@
             width: 100%;
             box-sizing: border-box;
         }
-        .checkout-form input:focus, .checkout-form textarea:focus {
+        .checkout-form input:focus, .checkout-form textarea:focus, .checkout-form select:focus {
             border-color: var(--accent-neon);
             outline: none;
             box-shadow: 0 0 8px var(--neon-glow);
@@ -223,7 +223,7 @@
 </head>
 <body>
 
-    <!-- Menú Desplegable de Categorías Actualizado -->
+    <!-- Menú Desplegable de Categorías -->
     <div class="menu-esquina">
         <button class="btn-menu" onclick="toggleMenu()">📂 Categorías ▼</button>
         <div id="dropdown-categorias" class="dropdown-content">
@@ -276,9 +276,9 @@
             </ul>
         </div>
 
-        <!-- Formulario Vertical del Cliente -->
+        <!-- Formulario Vertical del Cliente y Pago -->
         <div class="checkout-form">
-            <h3>📝 Datos de Envío y Cliente</h3>
+            <h3>📝 Datos de Envío y Pago Móvil</h3>
             <label for="nombre">Nombre y Apellido:</label>
             <input type="text" id="nombre" placeholder="Ej. María Pérez" required>
 
@@ -286,7 +286,19 @@
             <input type="tel" id="telefono" placeholder="Ej. 0412-1234567" required>
 
             <label for="direccion">Dirección de Entrega:</label>
-            <textarea id="direccion" rows="3" placeholder="Calle, número de casa, punto de referencia..." required></textarea>
+            <textarea id="direccion" rows="2" placeholder="Calle, casa, referencia..." required></textarea>
+
+            <label for="banco">¿De qué banco pagó?:</label>
+            <select id="banco">
+                <option value="Banco de Venezuela">Banco de Venezuela</option>
+                <option value="Banesco">Banesco</option>
+                <option value="Banco Mercantil">Banco Mercantil</option>
+                <option value="BBVA Provincial">BBVA Provincial</option>
+                <option value="Otro banco">Otro banco</option>
+            </select>
+
+            <label for="referencia">Últimos 4 dígitos o Referencia:</label>
+            <input type="text" id="referencia" placeholder="Ej. 4589" required>
 
             <button type="button" class="btn-enviar" onclick="enviarPedidoWhatsApp()">Enviar Pedido por WhatsApp</button>
         </div>
@@ -401,9 +413,11 @@
             const nombre = document.getElementById('nombre').value;
             const telefono = document.getElementById('telefono').value;
             const direccion = document.getElementById('direccion').value;
+            const banco = document.getElementById('banco').value;
+            const referencia = document.getElementById('referencia').value;
 
-            if(!nombre || !telefono || !direccion) {
-                alert('Por favor completa todos los datos de envío.');
+            if(!nombre || !telefono || !direccion || !referencia) {
+                alert('Por favor completa todos los datos de envío y la referencia de pago.');
                 return;
             }
 
@@ -416,7 +430,10 @@
             mensaje += `*Cliente:* ${nombre}%0A`;
             mensaje += `*Teléfono:* ${telefono}%0A`;
             mensaje += `*Dirección:* ${direccion}%0A%0A`;
-            mensaje += `*Productos:*%0A`;
+            mensaje += `*💳 Datos de Pago:*%0A`;
+            mensaje += `- Banco emisor: ${banco}%0A`;
+            mensaje += `- Referencia: ${referencia}%0A%0A`;
+            mensaje += `*🛍️ Productos:*%0A`;
 
             let total = 0;
             carrito.forEach(item => {
