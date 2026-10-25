@@ -82,6 +82,37 @@
             margin: 20px auto;
             padding: 0 15px;
         }
+
+        /* Buscador Rápido alineado a la izquierda */
+        .catalogo-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .buscador-container {
+            flex: 1;
+            max-width: 350px;
+        }
+        .buscador-container input {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 8px;
+            border: 1px solid #475569;
+            background: var(--card-bg);
+            color: white;
+            font-size: 14px;
+            box-sizing: border-box;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        .buscador-container input:focus {
+            border-color: var(--accent-neon);
+            outline: none;
+            box-shadow: 0 0 8px var(--neon-glow);
+        }
+
         .productos-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -245,7 +276,13 @@
     </header>
 
     <div class="container">
-        <h2>Catálogo de Productos</h2>
+        <!-- Cabecera del catálogo con Título y Buscador a la izquierda -->
+        <div class="catalogo-header">
+            <h2>Catálogo de Productos</h2>
+            <div class="buscador-container">
+                <input type="text" id="input-buscar" placeholder="🔍 Buscar producto..." oninput="buscarPorTexto()">
+            </div>
+        </div>
         
         <!-- Grilla de productos -->
         <div class="productos-grid" id="grid-productos">
@@ -264,8 +301,8 @@
         <!-- Datos de Pago Móvil -->
         <div class="seccion-pago">
             <h3>📱 Datos para Pago Móvil</h3>
-            <p><strong>Teléfono:</strong> 0422.008.24.64</p>
-            <p><strong>Cédula:</strong> V-17758545</p>
+            <p><strong>Teléfono:</strong> 0412-962.46.07</p>
+            <p><strong>Cédula:</strong> V-25123456</p>
             <p><strong>Clave / Referencia:</strong> [Tu clave aquí]</p>
             <p><strong>Bancos disponibles para transferir:</strong></p>
             <ul>
@@ -340,7 +377,7 @@
             grid.innerHTML = '';
             
             if (lista.length === 0) {
-                grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #94a3b8;">No hay productos en esta categoría.</p>';
+                grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #94a3b8;">No hay productos que coincidan con tu búsqueda.</p>';
                 return;
             }
 
@@ -360,6 +397,7 @@
         }
 
         function filtrarCategoria(categoria) {
+            document.getElementById('input-buscar').value = ''; // Limpiar buscador al filtrar por categoría
             if (categoria === 'todos') {
                 mostrarProductos(todosLosProductos);
             } else {
@@ -369,6 +407,15 @@
                 mostrarProductos(filtrados);
             }
             document.getElementById('dropdown-categorias').style.display = 'none';
+        }
+
+        function buscarPorTexto() {
+            const texto = document.getElementById('input-buscar').value.toLowerCase();
+            const filtrados = todosLosProductos.filter(prod => 
+                prod.nombre.toLowerCase().includes(texto) || 
+                (prod.categoria && prod.categoria.toLowerCase().includes(texto))
+            );
+            mostrarProductos(filtrados);
         }
 
         function agregarAlCarrito(id) {
