@@ -201,9 +201,9 @@
     <div class="container">
         <h2>Catálogo de Productos</h2>
         
-        <!-- Grilla de productos -->
+        <!-- Grilla de productos cargada dinámicamente -->
         <div class="productos-grid" id="grid-productos">
-            <!-- Los productos se cargan aquí -->
+            <!-- Los productos y fotos aparecerán aquí automáticamente -->
         </div>
 
         <!-- Datos de Pago Móvil con Cédula y Bancos -->
@@ -253,6 +253,28 @@
                 }
             }
         }
+
+        // Cargar automáticamente los productos y fotos desde el JSON
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch('/static/productos.json')
+                .then(response => response.json())
+                .then(productos => {
+                    const grid = document.getElementById('grid-productos');
+                    grid.innerHTML = '';
+                    
+                    productos.forEach(prod => {
+                        grid.innerHTML += `
+                            <div class="producto-card">
+                                <img src="/static/uploads/${prod.imagen}" alt="${prod.nombre}">
+                                <h3>${prod.nombre}</h3>
+                                <p>Precio: $${prod.precio.toFixed(2)}</p>
+                                <p>Unidad: ${prod.unidad}</p>
+                            </div>
+                        `;
+                    });
+                })
+                .catch(error => console.error("Error al cargar los productos:", error));
+        });
 
         function filtrarCategoria(categoria) {
             console.log("Filtrando por: " + categoria);
