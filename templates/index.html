@@ -238,6 +238,8 @@
     </div>
 
     <script>
+        let todosLosProductos = [];
+
         function toggleMenu() {
             var menu = document.getElementById('dropdown-categorias');
             menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
@@ -260,25 +262,43 @@
             fetch('/static/productos.json')
                 .then(response => response.json())
                 .then(productos => {
-                    const grid = document.getElementById('grid-productos');
-                    grid.innerHTML = '';
-                    
-                    productos.forEach(prod => {
-                        grid.innerHTML += `
-                            <div class="producto-card">
-                                <img src="/static/uploads/${prod.imagen}" alt="${prod.nombre}">
-                                <h3>${prod.nombre}</h3>
-                                <p>Precio: $${prod.precio.toFixed(2)}</p>
-                                <p>Unidad: ${prod.unidad}</p>
-                            </div>
-                        `;
-                    });
+                    todosLosProductos = productos;
+                    mostrarProductos(todosLosProductos);
                 })
                 .catch(error => console.error("Error al cargar los productos:", error));
         });
 
+        function mostrarProductos(lista) {
+            const grid = document.getElementById('grid-productos');
+            grid.innerHTML = '';
+            
+            if (lista.length === 0) {
+                grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #94a3b8;">No hay productos en esta categoría.</p>';
+                return;
+            }
+
+            lista.forEach(prod => {
+                grid.innerHTML += `
+                    <div class="producto-card">
+                        <img src="/static/uploads/${prod.imagen}" alt="${prod.nombre}">
+                        <h3>${prod.nombre}</h3>
+                        <p>Precio: $${prod.precio.toFixed(2)}</p>
+                        <p>Unidad: ${prod.unidad}</p>
+                    </div>
+                `;
+            });
+        }
+
         function filtrarCategoria(categoria) {
-            console.log("Filtrando por: " + categoria);
+            if (categoria === 'todos') {
+                mostrarProductos(todosLosProductos);
+            } else {
+                const filtrados = todosLosProductos.filter(prod => 
+                    prod.categoria && prod.categoria.toLowerCase().includes(categoria.toLowerCase())
+                );
+                mostrarProductos(filtrados);
+            }
+            document.getElementById('dropdown-categorias').style.display = 'none';
         }
 
         function enviarPedidoWhatsApp() {
