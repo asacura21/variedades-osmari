@@ -71,6 +71,19 @@
             box-shadow: 0 0 10px var(--neon-glow);
         }
 
+        .btn-logout {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+            border: 1px solid #ef4444;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .btn-logout:hover {
+            background: rgba(239, 68, 68, 0.4);
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
@@ -115,7 +128,10 @@
 
     <div class="container">
         <div class="acciones-admin">
-            <a href="/" class="btn-volver">← Volver a la Tienda</a>
+            <div>
+                <a href="/" class="btn-volver">← Volver a la Tienda</a>
+                <a href="/logout" class="btn-logout">Cerrar Sesión</a>
+            </div>
             <a href="/descargar_reporte" class="btn-reporte">📥 Descargar Reporte CSV</a>
         </div>
 
@@ -132,12 +148,13 @@
                 </tr>
             </thead>
             <tbody id="tabla-productos">
-                <!-- Los productos se cargarán dinámicamente -->
+                <!-- Se carga dinámicamente -->
             </tbody>
         </table>
     </div>
 
     <script>
+        // Cargar productos
         document.addEventListener("DOMContentLoaded", function() {
             fetch('/api/productos')
                 .then(response => response.json())
@@ -151,7 +168,7 @@
                                 <td><img src="/static/uploads/${prod.imagen}" alt="${prod.nombre}" class="admin-img"></td>
                                 <td>${prod.id}</td>
                                 <td><strong>${prod.nombre}</strong></td>
-                                <td>$${prod.precio.toFixed(2)}</td>
+                                $${prod.precio.toFixed(2)}
                                 <td>${prod.categoria}</td>
                                 <td>${prod.unidad}</td>
                             </tr>
@@ -160,6 +177,24 @@
                 })
                 .catch(error => console.error("Error al cargar inventario:", error));
         });
+
+        // Temporizador de inactividad (5 minutos = 300,000 ms)
+        const tiempoInactividad = 5 * 60 * 1000; 
+        let temporizador;
+
+        function reiniciarTemporizador() {
+            clearTimeout(temporizador);
+            temporizador = setTimeout(() => {
+                alert("⚠️ Su sesión ha expirado por inactividad.");
+                window.location.href = '/logout';
+            }, tiempoInactividad);
+        }
+
+        window.onload = reiniciarTemporizador;
+        window.onmousemove = reiniciarTemporizador;
+        window.onkeypress = reiniciarTemporizador;
+        window.onclick = reiniciarTemporizador;
+        window.onscroll = reiniciarTemporizador;
     </script>
 </body>
 </html>
