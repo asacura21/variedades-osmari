@@ -57,8 +57,10 @@
             box-shadow: 0 8px 20px rgba(0,0,0,0.5);
             border-radius: 8px;
             margin-top: 5px;
-            width: 180px;
+            width: 200px;
             overflow: hidden;
+            max-height: 400px;
+            overflow-y: auto;
         }
         .dropdown-content a {
             display: block;
@@ -130,7 +132,7 @@
             opacity: 0.85;
         }
 
-        /* Carrito flotante / sección de resumen */
+        /* Carrito de Compras */
         .carrito-seccion {
             background: var(--card-bg);
             padding: 20px;
@@ -221,14 +223,19 @@
 </head>
 <body>
 
-    <!-- Menú Desplegable de Categorías en la Esquina -->
+    <!-- Menú Desplegable de Categorías Actualizado -->
     <div class="menu-esquina">
         <button class="btn-menu" onclick="toggleMenu()">📂 Categorías ▼</button>
         <div id="dropdown-categorias" class="dropdown-content">
             <a href="#" onclick="filtrarCategoria('todos')">Todo el catálogo</a>
             <a href="#" onclick="filtrarCategoria('quesos')">Quesos</a>
             <a href="#" onclick="filtrarCategoria('charcuteria')">Charcutería</a>
-            <a href="#" onclick="filtrarCategoria('viveres')">Víveres y Postres</a>
+            <a href="#" onclick="filtrarCategoria('postres')">Postres y Tortas</a>
+            <a href="#" onclick="filtrarCategoria('ropa')">Ropa</a>
+            <a href="#" onclick="filtrarCategoria('deportiva')">Ropa Deportiva</a>
+            <a href="#" onclick="filtrarCategoria('lenceria')">Lencería</a>
+            <a href="#" onclick="filtrarCategoria('hogar')">Hogar</a>
+            <a href="#" onclick="filtrarCategoria('cuidados')">Cuidados y Limpieza</a>
         </div>
     </div>
 
@@ -420,7 +427,6 @@
 
             mensaje += `%0A*Total a Pagar:* $${total.toFixed(2)}`;
 
-            // Número de WhatsApp de destino (puedes ajustarlo si deseas)
             const numeroWhatsApp = "584129624607";
             window.open(`https://wa.me/${numeroWhatsApp}?text=${mensaje}`, '_blank');
         }
