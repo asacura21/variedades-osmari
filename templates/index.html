@@ -92,9 +92,11 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.3);
             text-align: center;
             border: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
         
-        /* Imágenes compactas */
         .producto-card img {
             width: 100%;
             height: 140px;
@@ -111,6 +113,43 @@
             margin: 5px 0;
             font-size: 14px;
             color: #94a3b8;
+        }
+
+        .btn-agregar {
+            background: var(--accent-neon);
+            color: #0f172a;
+            border: none;
+            padding: 8px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: opacity 0.2s;
+        }
+        .btn-agregar:hover {
+            opacity: 0.85;
+        }
+
+        /* Carrito flotante / sección de resumen */
+        .carrito-seccion {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 30px 0;
+            border: 1px solid var(--accent-neon);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        .carrito-lista {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0;
+        }
+        .carrito-lista li {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 14px;
         }
 
         /* Sección de Pago Móvil */
@@ -201,12 +240,21 @@
     <div class="container">
         <h2>Catálogo de Productos</h2>
         
-        <!-- Grilla de productos cargada dinámicamente -->
+        <!-- Grilla de productos -->
         <div class="productos-grid" id="grid-productos">
-            <!-- Los productos y fotos aparecerán aquí automáticamente -->
+            <!-- Cargado automáticamente -->
         </div>
 
-        <!-- Datos de Pago Móvil con Cédula, Clave y Bancos -->
+        <!-- Carrito de Compras -->
+        <div class="carrito-seccion">
+            <h3>🛒 Carrito de Compras</h3>
+            <ul id="lista-carrito" class="carrito-lista">
+                <li>El carrito está vacío.</li>
+            </ul>
+            <p><strong>Total a pagar: $<span id="total-carrito">0.00</span></strong></p>
+        </div>
+
+        <!-- Datos de Pago Móvil -->
         <div class="seccion-pago">
             <h3>📱 Datos para Pago Móvil</h3>
             <p><strong>Teléfono:</strong> 0412-962.46.07</p>
@@ -239,6 +287,7 @@
 
     <script>
         let todosLosProductos = [];
+        let carrito = [];
 
         function toggleMenu() {
             var menu = document.getElementById('dropdown-categorias');
@@ -257,7 +306,6 @@
             }
         }
 
-        // Cargar automáticamente los productos y fotos desde la carpeta static
         document.addEventListener("DOMContentLoaded", function() {
             fetch('/static/productos.json')
                 .then(response => response.json())
@@ -280,10 +328,13 @@
             lista.forEach(prod => {
                 grid.innerHTML += `
                     <div class="producto-card">
-                        <img src="/static/uploads/${prod.imagen}" alt="${prod.nombre}">
-                        <h3>${prod.nombre}</h3>
-                        <p>Precio: $${prod.precio.toFixed(2)}</p>
-                        <p>Unidad: ${prod.unidad}</p>
+                        <div>
+                            <img src="/static/uploads/${prod.imagen}" alt="${prod.nombre}">
+                            <h3>${prod.nombre}</h3>
+                            <p>Precio: $${prod.precio.toFixed(2)}</p>
+                            <p>Unidad: ${prod.unidad}</p>
+                        </div>
+                        <button class="btn-agregar" onclick="agregarAlCarrito(${prod.id})">Agregar al Carrito</button>
                     </div>
                 `;
             });
@@ -301,6 +352,44 @@
             document.getElementById('dropdown-categorias').style.display = 'none';
         }
 
+        function agregarAlCarrito(id) {
+            const producto = todosLosProductos.find(p => p.id === id);
+            if (!producto) return;
+
+            const itemExistente = carrito.find(item => item.id === id);
+            if (itemExistente) {
+                itemExistente.cantidad += 1;
+            } else {
+                carrito.push({ ...producto, cantidad: 1 });
+            }
+            actualizarCarrito();
+        }
+
+        function actualizarCarrito() {
+            const lista = document.getElementById('lista-carrito');
+            const totalSpan = document.getElementById('total-carrito');
+            lista.innerHTML = '';
+
+            if (carrito.length === 0) {
+                lista.innerHTML = '<li>El carrito está vacío.</li>';
+                totalSpan.textContent = '0.00';
+                return;
+            }
+
+            let total = 0;
+            carrito.forEach(item => {
+                const subtotal = item.precio * item.cantidad;
+                total += subtotal;
+                lista.innerHTML += `
+                    <li>
+                        <span>${item.nombre} (x${item.cantidad})</span>
+                        <span>$${subtotal.toFixed(2)}</span>
+                    </li>
+                `;
+            });
+            totalSpan.textContent = total.toFixed(2);
+        }
+
         function enviarPedidoWhatsApp() {
             const nombre = document.getElementById('nombre').value;
             const telefono = document.getElementById('telefono').value;
@@ -311,7 +400,29 @@
                 return;
             }
 
-            alert('¡Pedido listo para enviar, ' + nombre + '!');
+            if(carrito.length === 0) {
+                alert('El carrito está vacío. Agrega al menos un producto.');
+                return;
+            }
+
+            let mensaje = `*¡Nuevo Pedido - Variedades Osmari!*%0A%0A`;
+            mensaje += `*Cliente:* ${nombre}%0A`;
+            mensaje += `*Teléfono:* ${telefono}%0A`;
+            mensaje += `*Dirección:* ${direccion}%0A%0A`;
+            mensaje += `*Productos:*%0A`;
+
+            let total = 0;
+            carrito.forEach(item => {
+                let subtotal = item.precio * item.cantidad;
+                total += subtotal;
+                mensaje += `- ${item.nombre} (x${item.cantidad}): $${subtotal.toFixed(2)}%0A`;
+            });
+
+            mensaje += `%0A*Total a Pagar:* $${total.toFixed(2)}`;
+
+            // Número de WhatsApp de destino (puedes ajustarlo si deseas)
+            const numeroWhatsApp = "584129624607";
+            window.open(`https://wa.me/${numeroWhatsApp}?text=${mensaje}`, '_blank');
         }
     </script>
 </body>
