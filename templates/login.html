@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acceso Admin - Variedades Osmari</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-color: #f8fafc;
+            --accent-neon: #38bdf8;
+            --neon-glow: rgba(56, 189, 248, 0.4);
+            --header-gradient: linear-gradient(135deg, #3b82f6, #8b5cf6, #ec4899);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+            width: 100%;
+            max-width: 350px;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: var(--accent-neon);
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+            border: 1px solid #475569;
+            background: #0f172a;
+            color: white;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        input:focus {
+            border-color: var(--accent-neon);
+            outline: none;
+            box-shadow: 0 0 8px var(--neon-glow);
+        }
+
+        .btn-login {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            color: white;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 16px;
+            box-shadow: 0 0 10px var(--neon-glow);
+            transition: opacity 0.2s;
+        }
+
+        .btn-login:hover {
+            opacity: 0.9;
+        }
+
+        .error-msg {
+            color: #ef4444;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .btn-volver {
+            display: block;
+            margin-top: 15px;
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .btn-volver:hover {
+            color: var(--accent-neon);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-card">
+        <h2>🔒 Panel Protegido</h2>
+        <p style="font-size: 14px; color: #94a3b8; margin-bottom: 20px;">Variedades Osmari</p>
+        
+        {% if error %}
+            <div class="error-msg">{{ error }}</div>
+        {% endif %}
+
+        <form method="POST">
+            <input type="password" name="password" placeholder="Ingresa la clave de admin" required autofocus>
+            <button type="submit" class="btn-login">Ingresar</button>
+        </form>
+
+        <a href="/" class="btn-volver">← Volver a la Tienda</a>
+    </div>
+
+</body>
+</html>
