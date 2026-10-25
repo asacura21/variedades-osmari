@@ -11,7 +11,7 @@ app.secret_key = 'osmari_secure_key_2026'  # Clave secreta para mantener la sesi
 PRODUCTOS_FILE = os.path.join(app.root_path, 'static', 'productos.json')
 
 # CLAVE DE ADMINISTRADOR (Puedes cambiarla aquí cuando quieras)
-ADMIN_PASSWORD = "1234"  # <--- Cambia esto por la clave secreta que prefieras
+ADMIN_PASSWORD = "admin1234"  # <--- Cambia esto por la clave secreta que prefieras
 
 def cargar_productos():
     if os.path.exists(PRODUCTOS_FILE):
