@@ -1,13 +1,17 @@
-from flask import Flask, render_template, send_from_directory, jsonify, send_file
+from flask import Flask, render_template, send_from_directory, jsonify, send_file, request, redirect, url_for, session
 import os
 import json
 import csv
 import io
 
 app = Flask(__name__)
+app.secret_key = 'osmari_secure_key_2026'  # Clave secreta para mantener la sesión segura
 
 # Ruta del archivo JSON de productos
 PRODUCTOS_FILE = os.path.join(app.root_path, 'static', 'productos.json')
+
+# CLAVE DE ADMINISTRADOR (Puedes cambiarla aquí cuando quieras)
+ADMIN_PASSWORD = "1234"  # <--- Cambia esto por la clave secreta que prefieras
 
 def cargar_productos():
     if os.path.exists(PRODUCTOS_FILE):
@@ -20,9 +24,30 @@ def cargar_productos():
 def index():
     return render_template('index.html')
 
-# Ruta para el panel de administración
+# Ruta para iniciar sesión en el Admin
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    error = None
+    if request.method == 'POST':
+        password = request.form.get('password')
+        if password == ADMIN_PASSWORD:
+            session['admin_logged'] = True
+            return redirect(url_for('admin'))
+        else:
+            error = "Clave incorrecta. Inténtalo de nuevo."
+    return render_template('login.html', error=error)
+
+# Ruta para cerrar sesión
+@app.route('/logout')
+def logout():
+    session.pop('admin_logged', None)
+    return redirect(url_for('login'))
+
+# Ruta para el panel de administración (Protegida con clave)
 @app.route('/admin')
 def admin():
+    if not session.get('admin_logged'):
+        return redirect(url_for('login'))
     return render_template('admin.html')
 
 # API opcional para obtener la lista de productos desde el servidor
@@ -31,19 +56,19 @@ def api_get_productos():
     productos = cargar_productos()
     return jsonify(productos)
 
-# Ruta para descargar el reporte de inventario en archivo CSV
+# Ruta para descargar el reporte de inventario en archivo CSV (Protegida también)
 @app.route('/descargar_reporte')
 def descargar_reporte():
+    if not session.get('admin_logged'):
+        return redirect(url_for('login'))
+        
     productos = cargar_productos()
     
-    # Crear un archivo CSV en memoria
     output = io.StringIO()
     writer = csv.writer(output)
     
-    # Escribir los encabezados de las columnas
     writer.writerow(['ID', 'Nombre', 'Precio ($)', 'Categoría', 'Unidad', 'Imagen'])
     
-    # Escribir los datos de cada producto
     for p in productos:
         writer.writerow([
             p.get('id'),
@@ -56,7 +81,6 @@ def descargar_reporte():
         
     output.seek(0)
     
-    # Enviar el archivo como descarga automática al navegador
     return send_file(
         io.BytesIO(output.getvalue().encode('utf-8')),
         mimetype='text/csv',
@@ -64,7 +88,7 @@ def descargar_reporte():
         download_name='reporte_inventario_variedades_osmari.csv'
     )
 
-# Ruta para asegurar que las imágenes carguen sin problemas desde la carpeta uploads
+# Ruta para asegurar que las imágenes carguen sin problemas
 @app.route('/static/uploads/<path:filename>')
 def serve_uploads(filename):
     return send_from_directory(os.path.join(app.root_path, 'static', 'uploads'), filename)
