@@ -35,7 +35,7 @@
     "id": 5,
     "nombre": "Torta de Piña Completa",
     "precio": 15.00,
-    "categoria": "viveres",
+    "categoria": "postres",
     "unidad": "Unidad",
     "imagen": "5.jpeg"
   },
@@ -43,7 +43,7 @@
     "id": 6,
     "nombre": "Yogur Casero Artesanal",
     "precio": 6.00,
-    "categoria": "viveres",
+    "categoria": "postres",
     "unidad": "Unidad",
     "imagen": "6.jpeg"
   },
@@ -51,7 +51,7 @@
     "id": 7,
     "nombre": "Porción de Torta de Chocolate",
     "precio": 3.50,
-    "categoria": "viveres",
+    "categoria": "postres",
     "unidad": "Unidad",
     "imagen": "7.jpeg"
   },
@@ -59,7 +59,7 @@
     "id": 8,
     "nombre": "Chocoflan (Torta Quesillo Completa)",
     "precio": 15.00,
-    "categoria": "viveres",
+    "categoria": "postres",
     "unidad": "Unidad",
     "imagen": "8.jpeg"
   },
@@ -67,7 +67,7 @@
     "id": 9,
     "nombre": "Postres en Vasito (Marquesas)",
     "precio": 3.00,
-    "categoria": "viveres",
+    "categoria": "postres",
     "unidad": "Unidad",
     "imagen": "9.jpeg"
   },
@@ -75,7 +75,7 @@
     "id": 10,
     "nombre": "Porción de Chocoflan",
     "precio": 3.50,
-    "categoria": "viveres",
+    "categoria": "postres",
     "unidad": "Unidad",
     "imagen": "10.jpeg"
   },
@@ -83,7 +83,7 @@
     "id": 11,
     "nombre": "Porción de Torta de Piña",
     "precio": 3.50,
-    "categoria": "viveres",
+    "categoria": "postres",
     "unidad": "Unidad",
     "imagen": "11.jpeg"
   },
@@ -91,7 +91,7 @@
     "id": 12,
     "nombre": "Porción de Torta Especial",
     "precio": 3.50,
-    "categoria": "viveres",
+    "categoria": "postres",
     "unidad": "Unidad",
     "imagen": "12.jpeg"
   },
@@ -99,7 +99,7 @@
     "id": 13,
     "nombre": "Brownie de Chocolate",
     "precio": 3.00,
-    "categoria": "viveres",
+    "categoria": "postres",
     "unidad": "Unidad",
     "imagen": "13.jpeg"
   },
@@ -107,7 +107,7 @@
     "id": 14,
     "nombre": "Postre en Vasito Variado",
     "precio": 3.00,
-    "categoria": "viveres",
+    "categoria": "postres",
     "unidad": "Unidad",
     "imagen": "14.jpeg"
   },
@@ -115,7 +115,7 @@
     "id": 15,
     "nombre": "Biscocho Casero (1 Kg)",
     "precio": 8.00,
-    "categoria": "viveres",
+    "categoria": "postres",
     "unidad": "Unidad",
     "imagen": "15.jpeg"
   },
