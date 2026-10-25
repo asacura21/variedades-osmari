@@ -206,11 +206,12 @@
             <!-- Los productos y fotos aparecerán aquí automáticamente -->
         </div>
 
-        <!-- Datos de Pago Móvil con Cédula y Bancos -->
+        <!-- Datos de Pago Móvil con Cédula, Clave y Bancos -->
         <div class="seccion-pago">
             <h3>📱 Datos para Pago Móvil</h3>
             <p><strong>Teléfono:</strong> 0412-962.46.07</p>
             <p><strong>Cédula:</strong> V-25123456</p>
+            <p><strong>Clave / Referencia:</strong> [Tu clave aquí]</p>
             <p><strong>Bancos disponibles para transferir:</strong></p>
             <ul>
                 <li>🏦 <strong>Banco de Venezuela (0102)</strong></li>
@@ -254,7 +255,7 @@
             }
         }
 
-        // Cargar automáticamente los productos y fotos desde el JSON
+        // Cargar automáticamente los productos y fotos desde la carpeta static
         document.addEventListener("DOMContentLoaded", function() {
             fetch('/static/productos.json')
                 .then(response => response.json())
