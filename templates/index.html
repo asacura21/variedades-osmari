@@ -115,7 +115,7 @@
             gap: 8px;
         }
 
-        /* Cuadrícula de Categorías en Cuadros Compactos */
+        /* Cuadrícula de Categorías */
         .categorias-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
@@ -154,12 +154,12 @@
             color: #cbd5e1;
         }
 
-        /* Cuadrícula de Productos Compacta y Centrada (Ya no se ve "regado") */
+        /* Cuadrícula de Productos Compacta y Centrada */
         .productos-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(145px, 165px));
             gap: 12px;
-            justify-content: center; /* Mantiene los cuadros agrupados y centrados */
+            justify-content: center;
         }
 
         .prod-card {
@@ -228,6 +228,35 @@
 
         .btn-add:active {
             transform: scale(0.9);
+        }
+
+        /* Controles de Cantidad (+ y -) en la tarjeta */
+        .qty-control {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(56, 189, 248, 0.1);
+            border: 1px solid var(--accent-blue);
+            border-radius: 8px;
+            padding: 2px 4px;
+        }
+
+        .btn-qty {
+            background: none;
+            border: none;
+            color: var(--accent-blue);
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 0 4px;
+        }
+
+        .qty-num {
+            font-size: 12px;
+            font-weight: bold;
+            color: white;
+            min-width: 14px;
+            text-align: center;
         }
 
         /* Cuadros Informativos y Formulario */
@@ -433,174 +462,4 @@
                 <input type="tel" id="telefono" placeholder="Teléfono de Contacto" required>
                 <textarea id="direccion" rows="2" placeholder="Dirección de Entrega" required></textarea>
                 
-                <label style="font-size: 12px; color: var(--accent-blue); display: block; margin-bottom: 4px;">¿De qué banco pagaste?</label>
-                <select id="banco">
-                    <option value="Banco de Venezuela">Banco de Venezuela (0102)</option>
-                    <option value="Banesco">Banesco (0134)</option>
-                    <option value="Banco Mercantil">Banco Mercantil (0105)</option>
-                    <option value="BBVA Provincial">BBVA Provincial (0108)</option>
-                    <option value="Otro Banco">Otro Banco</option>
-                </select>
-
-                <input type="text" id="referencia" placeholder="Últimos 4 dígitos o Referencia" required>
-                
-                <button type="button" class="btn-whatsapp" onclick="enviarWhatsApp()">📲 Enviar Pedido por WhatsApp</button>
-            </div>
-        </div>
-
-    </div>
-
-    <!-- Barra de Carrito Flotante (Abajo) -->
-    <div class="bar-carrito" id="bar-carrito">
-        <div class="bar-carrito-info">
-            <span id="cant-items">0 productos</span><br>
-            <span class="bar-carrito-total">$<span id="total-monto">0.00</span></span>
-        </div>
-        <button class="btn-ver-carrito" onclick="abrirModalCarrito()">🛒 Ver Carrito</button>
-    </div>
-
-    <!-- Modal Detalle del Carrito -->
-    <div class="modal-carrito" id="modal-carrito">
-        <div class="modal-content">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                <h3 style="color: var(--accent-blue);">🛒 Carrito de Compras</h3>
-                <button onclick="cerrarModalCarrito()" style="background: none; border: none; color: white; font-size: 20px; cursor: pointer;">✕</button>
-            </div>
-            <div id="lista-carrito-modal" style="margin-bottom: 15px;"></div>
-            <button class="btn-whatsapp" onclick="cerrarModalCarrito(); document.getElementById('seccion-checkout').scrollIntoView({behavior: 'smooth'});">Continuar al Pago ↓</button>
-        </div>
-    </div>
-
-    <script>
-        let todosLosProductos = [];
-        let carrito = [];
-
-        document.addEventListener("DOMContentLoaded", function() {
-            fetch('/static/productos.json')
-                .then(r => r.json())
-                .then(data => {
-                    todosLosProductos = data;
-                    mostrarProds(todosLosProductos);
-                });
-
-            if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('/static/sw.js').catch(err => console.log(err));
-            }
-        });
-
-        function mostrarProds(lista) {
-            const grid = document.getElementById('grid-productos');
-            grid.innerHTML = '';
-            if (lista.length === 0) {
-                grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-sub); padding: 20px;">No hay productos disponibles.</p>';
-                return;
-            }
-            lista.forEach(p => {
-                grid.innerHTML += `
-                    <div class="prod-card">
-                        <div>
-                            <img src="/static/uploads/${p.imagen}" class="prod-img" alt="${p.nombre}">
-                            <div class="prod-title">${p.nombre}</div>
-                            <div class="prod-unit">${p.unidad}</div>
-                        </div>
-                        <div class="prod-footer">
-                            <span class="prod-price">$${p.precio.toFixed(2)}</span>
-                            <button class="btn-add" onclick="agregarItem(${p.id})">+</button>
-                        </div>
-                    </div>
-                `;
-            });
-        }
-
-        function filtrarCat(cat, elem) {
-            document.querySelectorAll('.cat-card').forEach(c => c.classList.remove('active'));
-            elem.classList.add('active');
-            if(cat === 'todos') {
-                mostrarProds(todosLosProductos);
-            } else {
-                mostrarProds(todosLosProductos.filter(p => p.categoria && p.categoria.toLowerCase().includes(cat)));
-            }
-        }
-
-        function buscarPorTexto() {
-            const txt = document.getElementById('input-buscar').value.toLowerCase();
-            mostrarProds(todosLosProductos.filter(p => p.nombre.toLowerCase().includes(txt)));
-        }
-
-        function agregarItem(id) {
-            const prod = todosLosProductos.find(p => p.id === id);
-            if(!prod) return;
-            const existe = carrito.find(item => item.id === id);
-            if(existe) {
-                existe.cant += 1;
-            } else {
-                carrito.push({ ...prod, cant: 1 });
-            }
-            actualizarBarra();
-        }
-
-        function actualizarBarra() {
-            let totalCant = 0;
-            let totalMonto = 0;
-            let htmlModal = '';
-
-            carrito.forEach(i => {
-                totalCant += i.cant;
-                const sub = i.precio * i.cant;
-                totalMonto += sub;
-                htmlModal += `
-                    <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 13px;">
-                        <span>${i.nombre} (x${i.cant})</span>
-                        <span style="color: var(--accent-green); font-weight: bold;">$${sub.toFixed(2)}</span>
-                    </div>
-                `;
-            });
-
-            document.getElementById('cant-items').textContent = `${totalCant} producto(s)`;
-            document.getElementById('total-monto').textContent = totalMonto.toFixed(2);
-            document.getElementById('lista-carrito-modal').innerHTML = htmlModal || '<p style="color: var(--text-sub);">El carrito está vacío.</p>';
-        }
-
-        function abrirModalCarrito() { document.getElementById('modal-carrito').style.display = 'flex'; }
-        function cerrarModalCarrito() { document.getElementById('modal-carrito').style.display = 'none'; }
-
-        function enviarWhatsApp() {
-            const nombre = document.getElementById('nombre').value;
-            const tlf = document.getElementById('telefono').value;
-            const dir = document.getElementById('direccion').value;
-            const banco = document.getElementById('banco').value;
-            const ref = document.getElementById('referencia').value;
-
-            if(!nombre || !tlf || !dir || !ref) {
-                alert('Por favor completa todos los datos de entrega y el número de referencia.');
-                return;
-            }
-
-            if(carrito.length === 0) {
-                alert('El carrito está vacío. Agrega al menos un producto.');
-                return;
-            }
-
-            let msg = `*¡Nuevo Pedido - Variedades Osmari!*%0A%0A`;
-            msg += `*Cliente:* ${nombre}%0A`;
-            msg += `*Teléfono:* ${tlf}%0A`;
-            msg += `*Dirección:* ${dir}%0A%0A`;
-            msg += `*💳 Datos de Pago:*%0A`;
-            msg += `- Banco emisor: ${banco}%0A`;
-            msg += `- Referencia: ${ref}%0A%0A`;
-            msg += `*🛍️ Productos:*%0A`;
-
-            let total = 0;
-            carrito.forEach(i => {
-                let sub = i.precio * i.cant;
-                total += sub;
-                msg += `- ${i.nombre} (x${i.cant}): $${sub.toFixed(2)}%0A`;
-            });
-
-            msg += `%0A*Total a Pagar:* $${total.toFixed(2)}`;
-
-            window.open(`https://wa.me/584129624607?text=${msg}`, '_blank');
-        }
-    </script>
-</body>
-</html>
+                <label style="font-size: 12px; color: var(--accent-blue); display
